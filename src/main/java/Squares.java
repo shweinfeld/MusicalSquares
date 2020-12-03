@@ -1,19 +1,28 @@
+import javax.sound.midi.*;
+
 public class Squares {
     public final static int ROW = 40;
-    public final static int COL = 12;
+    public final static int COL = 11;
     private boolean[][] squaresArray = new boolean[ROW][COL];
+    private int[] notesCsharp = {1, 13, 25, 37, 49, 61, 73, 85, 97, 109, 121};
+    private MidiChannel midiChannel;
+    private int pitch;
 
-    public Squares(){}
+
+    public Squares(MidiChannel midiChannel) {
+        this.midiChannel = midiChannel;
+    }
 
     public void play() {
-        for(int row = 0; row< ROW; row ++) {
-            for(int col = 0; col<COL; col ++){
-                //if cell is true
-                //get note[column index]
-                //add to music player
+        for (int row = 0; row < ROW; row++) {
+            for (int col = 0; col < COL; col++) {
+                if (squaresArray[row][col]) {
+                    pitch = notesCsharp[col];
+                    SoundThread s = new SoundThread(pitch, midiChannel); // pass in pitch to play
+                    s.start();
+                }
+
             }
-            //play those notes
-            //turn off those notes (optional maybe)
         }
     }
 
