@@ -1,6 +1,9 @@
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiUnavailableException;
 
+//Resources:
+//https://github.com/andrewoid/InteractivePiano
+
 public class Main {
 
     public static void main(String[] args) throws MidiUnavailableException {
