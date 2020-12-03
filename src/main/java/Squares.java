@@ -9,7 +9,8 @@ public class Squares {
     private int pitch;
 
 
-    public Squares() {
+    public Squares(MidiChannel midiChannel) {
+        this.midiChannel = midiChannel;
     }
 
     public void play() {
