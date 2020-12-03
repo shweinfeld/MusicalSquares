@@ -13,15 +13,19 @@ public class Squares {
         this.midiChannel = midiChannel;
     }
 
-    public void play() throws InterruptedException {
+    public void play(){
         for (int row = 0; row < ROW; row++) {
             for (int col = 0; col < COL; col++) {
                 if (squaresArray[row][col]) {
                     pitch = notesCsharp[col];
                     SoundThread s = new SoundThread(pitch, midiChannel); // pass in pitch to play
                     s.start();
-                    Thread.sleep(1000);
                 }
+            }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

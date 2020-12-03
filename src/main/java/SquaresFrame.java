@@ -4,6 +4,7 @@ import java.awt.*;
 public class SquaresFrame extends JFrame {
     Squares squares;
     SquaresView view;
+    JButton play;
 
     public SquaresFrame(SquareMouseListener listener, SquaresView view) {
         this.squares = view.getSquares();
@@ -13,10 +14,15 @@ public class SquaresFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Musical Squares");
         setLayout(new BorderLayout());
-
-        // play button that calls squares.play
+        play = new JButton("Play");
+        play.addActionListener(ActionEvent -> playNotes());
+        add(play, BorderLayout.SOUTH);
 
         view.addMouseListener(listener);
         add(view, BorderLayout.CENTER);
+    }
+
+    private void playNotes() {
+        squares.play();
     }
 }

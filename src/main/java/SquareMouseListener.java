@@ -36,10 +36,6 @@ public class SquareMouseListener implements java.awt.event.MouseListener{
 
     @Override
     public void mouseExited(MouseEvent e) {
-        try {
-            squares.play();
-        } catch (InterruptedException interruptedException) {
-            interruptedException.printStackTrace();
-        }
+
     }
 }
