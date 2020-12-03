@@ -5,6 +5,18 @@ public class Squares {
 
     public Squares(){}
 
+    public void play() {
+        for(int row = 0; row< ROW; row ++) {
+            for(int col = 0; col<COL; col ++){
+                //if cell is true
+                //get note[column index]
+                //add to music player
+            }
+            //play those notes
+            //turn off those notes (optional maybe)
+        }
+    }
+
 
     public void clearSquares() {
         for (int i = 0; i < ROW; i++) {

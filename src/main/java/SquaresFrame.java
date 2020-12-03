@@ -14,6 +14,8 @@ public class SquaresFrame extends JFrame {
         setTitle("Musical Squares");
         setLayout(new BorderLayout());
 
+        // play button that calls squares.play
+
         view.addMouseListener(listener);
         add(view, BorderLayout.CENTER);
     }
