@@ -5,6 +5,7 @@ public class SquaresFrame extends JFrame {
     Squares squares;
     SquaresView view;
     JButton play;
+    boolean playing = false;
 
     public SquaresFrame(SquareMouseListener listener, SquaresView view) {
         this.squares = view.getSquares();
@@ -23,6 +24,13 @@ public class SquaresFrame extends JFrame {
     }
 
     private void playNotes() {
-        squares.play();
+        if (!playing) {
+            Thread thread = new Thread(() -> {
+                playing = true;
+                squares.play();
+                playing = false;
+            });
+            thread.start();
+        }
     }
 }
