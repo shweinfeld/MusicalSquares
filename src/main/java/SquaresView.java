@@ -5,11 +5,12 @@ public class SquaresView extends JComponent {
     public static final int CELL_SIZE = 15;
     public static final int BORDERED_CELL_SIZE = 17;
     private static final Color ON_COLOR = Color.cyan;
-    private static final Color OFF_COLOR = Color.gray;
+    private  Color OFF_COLOR = Color.lightGray;
     private final Squares squares;
 
     public SquaresView(Squares squares) {
         this.squares = squares;
+
     }
 
     @Override
@@ -23,14 +24,23 @@ public class SquaresView extends JComponent {
         return squares;
     }
 
+
     private void paintLifeStatus(Graphics g) {
 
         for (int i = 0; i < Squares.ROW; i++) {
             for (int j = 0; j < Squares.COL; j++) {
+
+                if(i == squares.getStanza()){
+                    OFF_COLOR = Color.darkGray;
+                }
+                else { OFF_COLOR = Color.lightGray;}
                 g.setColor(squares.getCell(i,j)? ON_COLOR : OFF_COLOR);
                 g.fillRect(i * BORDERED_CELL_SIZE, j * BORDERED_CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                repaint();
             }
+
         }
+
     }
 }
 
