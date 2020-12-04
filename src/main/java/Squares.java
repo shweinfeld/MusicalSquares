@@ -16,9 +16,9 @@ public class Squares {
     public void playPiano(){
         for (int row = 0; row < ROW; row++) {
             for (int col = 0; col < COL; col++) {
+                setStanza(row);
                 if (squaresArray[row][col]) {
                     pitch = notesCsharp[col];
-                    setStanza(col);
                     soundThread = new SoundThread(pitch, midiChannel); // pass in pitch to play
                     soundThread.start();
                 }

@@ -29,12 +29,10 @@ public class SquaresFrame extends JFrame {
     }
 
     private void playNotes() {
-        if (!playing) {
+        playing = true;
         Thread thread = new Thread(() -> {
-            while (true) {
-                playing = true;
+            while (playing) {
                 squares.playPiano();
-                playing = false;
                 view.repaint();
                 try {
                     Thread.sleep(delay);
@@ -44,6 +42,5 @@ public class SquaresFrame extends JFrame {
             }
         });
         thread.start();
-    }
     }
 }
