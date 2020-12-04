@@ -16,11 +16,14 @@ public class SquareMouseListener implements java.awt.event.MouseListener{
         int colIndex = col/ SquaresView.BORDERED_CELL_SIZE;
 
         squares.setCell(rowIndex, colIndex, !squares.getCell(rowIndex, colIndex));
+        squares.playNote(colIndex);
         e.getComponent().repaint();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+
+
 
     }
 
