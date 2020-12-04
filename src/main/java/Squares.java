@@ -13,7 +13,7 @@ public class Squares {
         this.midiChannel = midiChannel;
     }
 
-    public void play(){
+    public void playPiano(){
         for (int row = 0; row < ROW; row++) {
             for (int col = 0; col < COL; col++) {
                 if (squaresArray[row][col]) {
@@ -30,6 +30,11 @@ public class Squares {
         }
     }
 
+    public void playNote(int index){
+        pitch = notesCsharp[index];
+        SoundThread s = new SoundThread(pitch, midiChannel); // pass in pitch to play
+        s.start();
+    }
 
     public void clearSquares() {
         for (int i = 0; i < ROW; i++) {

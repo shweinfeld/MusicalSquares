@@ -23,6 +23,6 @@ public class SquaresFrame extends JFrame {
     }
 
     private void playNotes() {
-        squares.play();
+        squares.playPiano();
     }
 }
