@@ -7,6 +7,7 @@ public class SquaresFrame extends JFrame {
     private SquaresView view;
     private JButton play;
     private JButton clear;
+    private JButton stop;
     private int delay = 200;
     boolean playing = false;
 
@@ -20,19 +21,27 @@ public class SquaresFrame extends JFrame {
         setLayout(new BorderLayout());
         play = new JButton("Play");
         clear = new JButton("Clear");
+        stop = new JButton("Stop");
+        stop.addActionListener(ActionEvent -> stopPlaying());
         clear.addActionListener(ActionEvent -> squares.clearSquares());
         play.addActionListener(ActionEvent -> playNotes());
         add(play, BorderLayout.EAST);
         add(clear, BorderLayout.WEST);
+        add(stop, BorderLayout.SOUTH);
         view.addMouseListener(listener);
         add(view, BorderLayout.CENTER);
+    }
+
+    private void stopPlaying() {
+        playing = false;
+        squares.setStanza(0);
     }
 
     private void playNotes() {
         playing = true;
         Thread thread = new Thread(() -> {
             while (playing) {
-                squares.playPiano();
+                squares.playNextLine();
                 view.repaint();
                 try {
                     Thread.sleep(delay);

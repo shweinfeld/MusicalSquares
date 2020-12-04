@@ -13,21 +13,22 @@ public class Squares {
         this.midiChannel = midiChannel;
     }
 
-    public void playPiano(){
-        for (int row = 0; row < ROW; row++) {
-            for (int col = 0; col < COL; col++) {
-                setStanza(row);
-                if (squaresArray[row][col]) {
-                    pitch = notesCsharp[col];
-                    soundThread = new SoundThread(pitch, midiChannel); // pass in pitch to play
-                    soundThread.start();
-                }
+    public void playNextLine() {
+        if (stanza == ROW) {
+            stanza = 0;
+        }
+        for (int col = 0; col < COL; col++) {
+            if (squaresArray[stanza][col]) {
+                pitch = notesCsharp[col];
+                soundThread = new SoundThread(pitch, midiChannel); // pass in pitch to play
+                soundThread.start();
             }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        }
+        stanza++;
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -37,9 +38,6 @@ public class Squares {
     }
     public int getStanza(){ return this.stanza;}
 
-    public void stopPiano(){
-        //stops piano
-    }
     public void playNote(int index){
         pitch = notesCsharp[index];
         SoundThread s = new SoundThread(pitch, midiChannel); // pass in pitch to play

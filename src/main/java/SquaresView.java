@@ -30,7 +30,7 @@ public class SquaresView extends JComponent {
         for (int i = 0; i < Squares.ROW; i++) {
             for (int j = 0; j < Squares.COL; j++) {
 
-                if(i == squares.getStanza()){
+                if(i == squares.getStanza() - 1){
                     OFF_COLOR = Color.blue;
                 }
                 else { OFF_COLOR = Color.lightGray;}
