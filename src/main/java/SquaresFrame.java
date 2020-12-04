@@ -2,9 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SquaresFrame extends JFrame {
-    Squares squares;
-    SquaresView view;
-    JButton play;
+
+    private Squares squares;
+    private SquaresView view;
+    private JButton play;
+    private JButton clear;
+    private int delay = 200;
     boolean playing = false;
 
     public SquaresFrame(SquareMouseListener listener, SquaresView view) {
@@ -16,21 +19,31 @@ public class SquaresFrame extends JFrame {
         setTitle("Musical Squares");
         setLayout(new BorderLayout());
         play = new JButton("Play");
+        clear = new JButton("Clear");
+        clear.addActionListener(ActionEvent -> squares.clearSquares());
         play.addActionListener(ActionEvent -> playNotes());
-        add(play, BorderLayout.SOUTH);
-
+        add(play, BorderLayout.EAST);
+        add(clear, BorderLayout.WEST);
         view.addMouseListener(listener);
         add(view, BorderLayout.CENTER);
     }
 
     private void playNotes() {
         if (!playing) {
-            Thread thread = new Thread(() -> {
+        Thread thread = new Thread(() -> {
+            while (true) {
                 playing = true;
-                squares.play();
+                squares.playPiano();
                 playing = false;
-            });
-            thread.start();
-        }
+                view.repaint();
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
     }
 }
