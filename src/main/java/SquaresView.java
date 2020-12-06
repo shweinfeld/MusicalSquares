@@ -35,7 +35,7 @@ public class SquaresView extends JComponent {
                 }
                 else { OFF_COLOR = Color.lightGray;}
                 g.setColor(squares.getCell(i,j)? ON_COLOR : OFF_COLOR);
-                g.fillRect(i * BORDERED_CELL_SIZE, j * BORDERED_CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                g.fillRoundRect(i * BORDERED_CELL_SIZE, j * BORDERED_CELL_SIZE, CELL_SIZE, CELL_SIZE, 10, 10);
                 repaint();
             }
         }
