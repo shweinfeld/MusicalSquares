@@ -17,13 +17,7 @@ public class Squares {
         if (stanza == ROW) {
             stanza = 0;
         }
-        for (int col = 0; col < COL; col++) {
-            if (squaresArray[stanza][col]) {
-                pitch = notesCsharp[col];
-                soundThread = new SoundThread(pitch, midiChannel); // pass in pitch to play
-                soundThread.start();
-            }
-        }
+        playStanza(stanza);
         stanza++;
         try {
             Thread.sleep(500);
@@ -32,6 +26,15 @@ public class Squares {
         }
     }
 
+    public void playStanza(int stanza){
+        for (int col = 0; col < COL; col++) {
+            if (squaresArray[stanza][col]) {
+                pitch = notesCsharp[col];
+                soundThread = new SoundThread(pitch, midiChannel); // pass in pitch to play
+                soundThread.start();
+            }
+        }
+    }
     public void setStanza(int col) {
 
         this.stanza = col;
