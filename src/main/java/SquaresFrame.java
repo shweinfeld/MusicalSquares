@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
-public class SquaresFrame extends JFrame {
+public class SquaresFrame extends JFrame implements ItemListener {
 
     private Squares squares;
     private SquaresView view;
@@ -11,6 +13,7 @@ public class SquaresFrame extends JFrame {
     private JPanel playButtonsPanel;
     private JPanel viewAndButtons;
     private JPanel UIControlPanel;
+    private JComboBox<Scales> scaleOptions;
     private int delay = 200;
     boolean playing = false;
 
@@ -21,12 +24,16 @@ public class SquaresFrame extends JFrame {
         setSize(692, 500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Musical Squares");
-        setLayout(new GridLayout(2,1));
+        setLayout(new GridLayout(2, 1));
         play = new JButton("Play");
         clear = new JButton("Clear");
         stop = new JButton("Stop");
+
         playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
-        UIControlPanel = new JPanel(new GridLayout(1, 3));
+        UIControlPanel = new JPanel(new GridLayout(1, 4));
+        scaleOptions = new JComboBox<>(Scales.values());
+        scaleOptions.addItemListener(this);
+
         viewAndButtons = new JPanel(new BorderLayout());
 
         stop.addActionListener(ActionEvent -> stopPlaying());
@@ -34,16 +41,7 @@ public class SquaresFrame extends JFrame {
         play.addActionListener(ActionEvent -> playNotes());
 
         //might want to separate out into a separate function
-        for (int j = 0; j < Squares.ROW; j++) {
-                JButton playStanzaButton = new JButton();
-                playStanzaButton.setPreferredSize(new Dimension(SquaresView.CELL_SIZE, SquaresView.CELL_SIZE));
-                ImageIcon playIcon = new ImageIcon(new ImageIcon ("icons8-circled-play-64.png").getImage().getScaledInstance(12, 12, Image.SCALE_SMOOTH));
-                playStanzaButton.setIcon(playIcon);
-
-                int finalStanza = j;
-                playStanzaButton.addActionListener(ActionEvent -> playColumn(finalStanza));
-                playButtonsPanel.add(playStanzaButton);
-            }
+        createPlayStanzaButtons();
 
         view.addMouseListener(listener);
         viewAndButtons.add(playButtonsPanel, BorderLayout.NORTH);
@@ -54,8 +52,23 @@ public class SquaresFrame extends JFrame {
         UIControlPanel.add(play);
         UIControlPanel.add(clear);
         UIControlPanel.add(stop);
+        UIControlPanel.add(scaleOptions);
         add(UIControlPanel);
 
+    }
+
+
+    private void createPlayStanzaButtons() {
+        for (int j = 0; j < Squares.ROW; j++) {
+            JButton playStanzaButton = new JButton();
+            playStanzaButton.setPreferredSize(new Dimension(SquaresView.CELL_SIZE, SquaresView.CELL_SIZE));
+            ImageIcon playIcon = new ImageIcon(new ImageIcon("icons8-circled-play-64.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+            playStanzaButton.setIcon(playIcon);
+
+            int finalStanza = j;
+            playStanzaButton.addActionListener(ActionEvent -> playColumn(finalStanza));
+            playButtonsPanel.add(playStanzaButton);
+        }
     }
 
     private void playColumn(int finalStanza) {
@@ -66,10 +79,9 @@ public class SquaresFrame extends JFrame {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        // for some reason this line causes it not be highlighted
+        //this line removes the highlighting effect. not sure why
         squares.setStanza(0);
-        //
+
     }
 
     private void stopPlaying() {
@@ -91,5 +103,13 @@ public class SquaresFrame extends JFrame {
             }
         });
         thread.start();
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent event) {
+
+        if (event.getSource() == scaleOptions) {
+            squares.changeScales((Scales) scaleOptions.getSelectedItem());
+        }
     }
 }
