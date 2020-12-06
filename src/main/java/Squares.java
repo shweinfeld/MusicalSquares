@@ -4,11 +4,12 @@ public class Squares {
     public final static int ROW = 40;
     public final static int COL = 11;
     private boolean[][] squaresArray = new boolean[ROW][COL];
-    private int[] notesCsharp = {1, 13, 25, 37, 49, 61, 73, 85, 97, 109, 121};
+    private int[] scale = Scales.CHROMATIC.getScale();
     private MidiChannel midiChannel;
     private int pitch;
     private SoundThread soundThread;
     private int stanza = 0;
+
     public Squares(MidiChannel midiChannel) {
         this.midiChannel = midiChannel;
     }
@@ -26,10 +27,13 @@ public class Squares {
         }
     }
 
+    public void changeScales(Scales updatedScale){
+        scale = updatedScale.getScale();
+    }
     public void playStanza(int stanza){
         for (int col = 0; col < COL; col++) {
             if (squaresArray[stanza][col]) {
-                pitch = notesCsharp[col];
+                pitch = scale[col];
                 soundThread = new SoundThread(pitch, midiChannel); // pass in pitch to play
                 soundThread.start();
             }
@@ -42,7 +46,7 @@ public class Squares {
     public int getStanza(){ return this.stanza;}
 
     public void playNote(int index){
-        pitch = notesCsharp[index];
+        pitch = scale[index];
         SoundThread s = new SoundThread(pitch, midiChannel); // pass in pitch to play
         s.start();
     }
