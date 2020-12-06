@@ -33,6 +33,7 @@ public class SquaresFrame extends JFrame {
         clear.addActionListener(ActionEvent -> squares.clearSquares());
         play.addActionListener(ActionEvent -> playNotes());
 
+        //might want to separate out into a separate function
         for (int j = 0; j < Squares.COL; j++) {
                 JButton playStanzaButton = new JButton();
                 ImageIcon playIcon = new ImageIcon("icons8-circled-play-64.png");
