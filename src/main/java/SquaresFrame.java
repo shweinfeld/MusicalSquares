@@ -21,19 +21,19 @@ public class SquaresFrame extends JFrame implements ItemListener {
         this.squares = view.getSquares();
         this.view = view;
 
-        setSize(1000, 500);
+        setSize(692, 500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Musical Squares");
         setLayout(new GridLayout(2, 1));
         play = new JButton("Play");
         clear = new JButton("Clear");
         stop = new JButton("Stop");
+
+        playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
+        UIControlPanel = new JPanel(new GridLayout(1, 4));
         scaleOptions = new JComboBox<>(Scales.values());
         scaleOptions.addItemListener(this);
 
-
-        playButtonsPanel = new JPanel(new GridLayout(1, squares.COL));
-        UIControlPanel = new JPanel(new GridLayout(1, 4));
         viewAndButtons = new JPanel(new BorderLayout());
 
         stop.addActionListener(ActionEvent -> stopPlaying());
@@ -57,16 +57,31 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     }
 
+
     private void createPlayStanzaButtons() {
-        for (int j = 0; j < Squares.COL; j++) {
+        for (int j = 0; j < Squares.ROW; j++) {
             JButton playStanzaButton = new JButton();
-            ImageIcon playIcon = new ImageIcon("icons8-circled-play-64.png");
+            playStanzaButton.setPreferredSize(new Dimension(SquaresView.CELL_SIZE, SquaresView.CELL_SIZE));
+            ImageIcon playIcon = new ImageIcon(new ImageIcon("icons8-circled-play-64.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             playStanzaButton.setIcon(playIcon);
 
             int finalStanza = j;
-            playStanzaButton.addActionListener(ActionEvent -> squares.playStanza(finalStanza));
+            playStanzaButton.addActionListener(ActionEvent -> playColumn(finalStanza));
             playButtonsPanel.add(playStanzaButton);
         }
+    }
+
+    private void playColumn(int finalStanza) {
+        squares.playStanza(finalStanza);
+        squares.setStanza(finalStanza + 1);
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //this line removes the highlighting effect. not sure why
+        squares.setStanza(0);
+
     }
 
     private void stopPlaying() {
@@ -79,7 +94,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
         Thread thread = new Thread(() -> {
             while (playing) {
                 squares.playNextLine();
-                view.repaint();
+                //view.repaint();
                 try {
                     Thread.sleep(delay);
                 } catch (InterruptedException e) {
