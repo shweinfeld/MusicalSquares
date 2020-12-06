@@ -16,7 +16,7 @@ public class SquaresView extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        paintLifeStatus(g);
+        paintOnStatus(g);
 
     }
 
@@ -25,20 +25,19 @@ public class SquaresView extends JComponent {
     }
 
 
-    private void paintLifeStatus(Graphics g) {
+    private void paintOnStatus(Graphics g) {
 
         for (int i = 0; i < Squares.ROW; i++) {
             for (int j = 0; j < Squares.COL; j++) {
 
-                if(i == squares.getStanza()){
-                    OFF_COLOR = Color.darkGray;
+                if(i == squares.getStanza() - 1){
+                    OFF_COLOR = Color.blue;
                 }
                 else { OFF_COLOR = Color.lightGray;}
                 g.setColor(squares.getCell(i,j)? ON_COLOR : OFF_COLOR);
                 g.fillRect(i * BORDERED_CELL_SIZE, j * BORDERED_CELL_SIZE, CELL_SIZE, CELL_SIZE);
                 repaint();
             }
-
         }
 
     }
