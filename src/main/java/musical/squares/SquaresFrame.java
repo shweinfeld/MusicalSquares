@@ -18,6 +18,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private JPanel viewAndButtons;
     private Box UIControlPanel;
     private JComboBox<Scales> scaleOptions;
+    private JComboBox<Instruments> instrumentOptions;
     private int delay = 200;
     boolean playing = false;
     ButtonGroup buttons = new ButtonGroup();
@@ -30,6 +31,12 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
         setSize(1075, 370);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Musical musical.squares.Squares");
+        setLayout(new GridLayout(2, 1));
+        play = new JButton("Play");
+        clear = new JButton("Clear");
+        stop = new JButton("Stop");
+
         setTitle("Musical Squares");
         setLayout(new BorderLayout());
 
@@ -52,9 +59,14 @@ public class SquaresFrame extends JFrame implements ItemListener {
         clear.setAlignmentX(UIControlPanel.getAlignmentX());
         UIControlPanel.add(clear);
         UIControlPanel.add(createFiller(20, 20));
+
         scaleOptions = new JComboBox<>(Scales.values());
         scaleOptions.addItemListener(this);
         UIControlPanel.add(scaleOptions);
+        UIControlPanel.add(createFiller(20, 20));
+        instrumentOptions = new JComboBox<>(Instruments.values());
+        instrumentOptions.addItemListener(this);
+        UIControlPanel.add(instrumentOptions);
         UIControlPanel.add(createFiller(20, 20));
 
         Border blackline = BorderFactory.createLineBorder(Color.black);
@@ -64,6 +76,8 @@ public class SquaresFrame extends JFrame implements ItemListener {
         instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
         instructionPanel.add(new TextField("Hello! Welcome to the most awesome instrument player!" +
                 "click as many boxes as you like and play the row, or the whole sequence"));
+
+
 
         viewAndButtons = new JPanel(new BorderLayout());
         viewAndButtons.setBackground(Color.BLACK);
@@ -82,7 +96,6 @@ public class SquaresFrame extends JFrame implements ItemListener {
         add(viewAndButtons);
 
         add(UIControlPanel, BorderLayout.EAST);
-
 
     }
 
@@ -156,6 +169,9 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
         if (event.getSource() == scaleOptions) {
             squares.changeScales((Scales) scaleOptions.getSelectedItem());
+        }
+        if (event.getSource() == instrumentOptions) {
+            squares.changeInstrument((Instruments) instrumentOptions.getSelectedItem());
         }
     }
 }
