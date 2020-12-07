@@ -1,3 +1,5 @@
+package musical.squares;
+
 import javax.sound.midi.MidiChannel;
 
 public class SoundThread  extends Thread{

@@ -1,4 +1,4 @@
-
+package musical.squares;
 
 public enum Scales {
 

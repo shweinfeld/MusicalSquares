@@ -1,3 +1,5 @@
+package musical.squares;
+
 import javax.swing.*;
 import java.awt.*;
 
