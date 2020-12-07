@@ -16,6 +16,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private JPanel viewAndButtons;
     private JPanel UIControlPanel;
     private JComboBox<Scales> scaleOptions;
+    private JComboBox<Instruments> instrumentOptions;
     private int delay = 200;
     boolean playing = false;
 
@@ -32,9 +33,12 @@ public class SquaresFrame extends JFrame implements ItemListener {
         stop = new JButton("Stop");
 
         playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
-        UIControlPanel = new JPanel(new GridLayout(1, 4));
+        UIControlPanel = new JPanel(new GridLayout(1, 5));
         scaleOptions = new JComboBox<>(Scales.values());
         scaleOptions.addItemListener(this);
+
+        instrumentOptions = new JComboBox<>(Instruments.values());
+        instrumentOptions.addItemListener(this);
 
         viewAndButtons = new JPanel(new BorderLayout());
 
@@ -55,6 +59,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
         UIControlPanel.add(clear);
         UIControlPanel.add(stop);
         UIControlPanel.add(scaleOptions);
+        UIControlPanel.add(instrumentOptions);
         add(UIControlPanel);
 
     }
@@ -112,6 +117,9 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
         if (event.getSource() == scaleOptions) {
             squares.changeScales((Scales) scaleOptions.getSelectedItem());
+        }
+        if (event.getSource() == instrumentOptions) {
+            squares.changeInstrument((Instruments) instrumentOptions.getSelectedItem());
         }
     }
 }

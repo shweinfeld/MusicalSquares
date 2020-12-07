@@ -5,6 +5,8 @@ import javax.sound.midi.MidiUnavailableException;
 
 //Resources:
 //https://github.com/andrewoid/InteractivePiano
+//https://github.com/shweinfeld/Conways-Game-of-Life
+//https://github.com/irshadshalu/music-grid
 
 public class Main {
 
