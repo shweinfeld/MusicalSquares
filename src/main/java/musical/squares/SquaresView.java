@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SquaresView extends JComponent {
-    public static final int CELL_SIZE = 15;
-    public static final int BORDERED_CELL_SIZE = 17;
+    public static final int CELL_SIZE = 21;
+    public static final int BORDERED_CELL_SIZE = 24;
     private static final Color ON_COLOR = Color.cyan;
     private  Color OFF_COLOR = Color.lightGray;
     private final Squares squares;
