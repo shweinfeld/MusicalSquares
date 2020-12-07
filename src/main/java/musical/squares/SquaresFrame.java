@@ -1,3 +1,5 @@
+package musical.squares;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
@@ -23,7 +25,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
         setSize(692, 500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Musical Squares");
+        setTitle("Musical musical.squares.Squares");
         setLayout(new GridLayout(2, 1));
         play = new JButton("Play");
         clear = new JButton("Clear");

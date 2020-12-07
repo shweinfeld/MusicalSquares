@@ -1,8 +1,10 @@
+package musical.squares;
+
 import javax.sound.midi.*;
 
 public class Squares {
     public final static int ROW = 40;
-    public final static int COL = 11;
+    public final static int COL = 12;
     private boolean[][] squaresArray = new boolean[ROW][COL];
     private int[] scale = Scales.CHROMATIC.getScale();
     private MidiChannel midiChannel;
