@@ -1,3 +1,5 @@
+package musical.squares;
+
 import java.awt.event.MouseEvent;
 
 public class SquareMouseListener implements java.awt.event.MouseListener{
