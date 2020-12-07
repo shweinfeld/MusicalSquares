@@ -74,15 +74,16 @@ public class SquaresFrame extends JFrame implements ItemListener {
     }
 
     private void playColumn(int finalStanza) {
-        squares.playStanza(finalStanza);
-        squares.setStanza(finalStanza + 1);
-        try {
-            Thread.sleep(delay);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //this line removes the highlighting effect. not sure why
-        squares.setStanza(0);
+
+            try {
+                squares.playStanza(finalStanza);
+                squares.setStanza(finalStanza + 1);
+                Thread.sleep(delay);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
 
     }
 
@@ -93,10 +94,10 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     private void playNotes() {
         playing = true;
+        squares.setStanza(0);
         Thread thread = new Thread(() -> {
             while (playing) {
                 squares.playNextLine();
-                //view.repaint();
                 try {
                     Thread.sleep(delay);
                 } catch (InterruptedException e) {

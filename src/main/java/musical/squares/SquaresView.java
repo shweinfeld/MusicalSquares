@@ -9,11 +9,13 @@ public class SquaresView extends JComponent {
     private static final Color ON_COLOR = Color.cyan;
     private  Color OFF_COLOR = Color.lightGray;
     private final Squares squares;
+    private int stanza = 0;
 
     public SquaresView(Squares squares) {
         this.squares = squares;
 
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -27,21 +29,31 @@ public class SquaresView extends JComponent {
     }
 
 
+
+
     private void paintOnStatus(Graphics g) {
 
         for (int i = 0; i < Squares.ROW; i++) {
             for (int j = 0; j < Squares.COL; j++) {
-
-                if(i == squares.getStanza() - 1){
-                    OFF_COLOR = Color.blue;
-                }
-                else { OFF_COLOR = Color.lightGray;}
+                setOffColor(i);
                 g.setColor(squares.getCell(i,j)? ON_COLOR : OFF_COLOR);
                 g.fillRoundRect(i * BORDERED_CELL_SIZE, j * BORDERED_CELL_SIZE, CELL_SIZE, CELL_SIZE, 10, 10);
                 repaint();
             }
         }
 
+    }
+
+    public void setOffColor(int row){
+        if(row == squares.getStanza() - 1){
+            OFF_COLOR = Color.blue;
+        }
+        else { OFF_COLOR = Color.lightGray;}
+    }
+
+    public void resetOffColor(int row){
+        OFF_COLOR = Color.lightGray;
+        repaint();
     }
 }
 
