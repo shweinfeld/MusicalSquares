@@ -33,9 +33,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Musical musical.squares.Squares");
         setLayout(new GridLayout(2, 1));
-        play = new JButton("Play");
-        clear = new JButton("Clear");
-        stop = new JButton("Stop");
+        setResizable(false);
 
         setTitle("Musical Squares");
         setLayout(new BorderLayout());
@@ -74,13 +72,14 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
         playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
         instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
-        instructionPanel.add(new TextField("Hello! Welcome to the most awesome instrument player!" +
-                "click as many boxes as you like and play the row, or the whole sequence"));
+        TextField welcome = new TextField("Hello! Welcome to the most awesome instrument player!" +
+                "click as many boxes as you like and play the row, or the whole sequence");
+        instructionPanel.add(welcome);
 
 
 
         viewAndButtons = new JPanel(new BorderLayout());
-        viewAndButtons.setBackground(Color.BLACK);
+        viewAndButtons.setBackground(Color.WHITE);
 
         stop.addActionListener(ActionEvent -> stopPlaying());
         clear.addActionListener(ActionEvent -> squares.clearSquares());
@@ -88,7 +87,6 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
         //might want to separate out into a separate function
         createPlayStanzaButtons();
-
         view.addMouseListener(listener);
         viewAndButtons.add(instructionPanel, BorderLayout.NORTH);
         viewAndButtons.add(playButtonsPanel, BorderLayout.SOUTH);
@@ -103,7 +101,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private void createPlayStanzaButtons() {
         for (int j = 0; j < Squares.ROW; j++) {
             JButton playStanzaButton = new JButton();
-            playStanzaButton.setBackground(new Color(47, 191, 51));
+            //playStanzaButton.setBackground(new Color(47, 191, 51));
             playStanzaButton.setPreferredSize(new Dimension(SquaresView.CELL_SIZE, SquaresView.CELL_SIZE));
             ImageIcon playIcon = new ImageIcon(new ImageIcon("icons8-circled-play-64.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             playStanzaButton.setIcon(playIcon);
