@@ -131,6 +131,9 @@ public class SquaresFrame extends JFrame implements ItemListener {
     }
 
     private void playNotes() {
+        if (playing) {
+            return;
+        }
         playing = true;
         Thread thread = new Thread(() -> {
             while (playing) {
