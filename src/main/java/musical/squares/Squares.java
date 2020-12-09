@@ -33,9 +33,11 @@ public class Squares {
         scale = updatedScale.getScale();
     }
 
+
     public void changeInstrument(Instruments updatedInstrument) {
         midiChannel.programChange( updatedInstrument.getInstrument());
     }
+
     public void playStanza(int stanza){
         for (int col = 0; col < COL; col++) {
             if (squaresArray[stanza][col]) {
@@ -45,10 +47,12 @@ public class Squares {
             }
         }
     }
+
     public void setStanza(int col) {
 
         this.stanza = col;
     }
+
     public int getStanza(){ return this.stanza;}
 
     public void playNote(int index){
