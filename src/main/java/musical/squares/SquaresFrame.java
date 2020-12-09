@@ -135,15 +135,16 @@ public class SquaresFrame extends JFrame implements ItemListener {
         }
         playing = true;
         squares.setStanza(0);
+        view.repaint();
         Thread thread = new Thread(() -> {
             while (playing) {
                 squares.playNextLine();
-                view.repaint();
                 try {
                     Thread.sleep(delay);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                view.repaint();
             }
         });
         thread.start();
