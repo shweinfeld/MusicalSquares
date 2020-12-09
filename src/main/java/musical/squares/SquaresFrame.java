@@ -3,6 +3,8 @@ package musical.squares;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -108,23 +110,19 @@ public class SquaresFrame extends JFrame implements ItemListener {
             ImageIcon playIcon = new ImageIcon(new ImageIcon("icons8-circled-play-64.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             playStanzaButton.setIcon(playIcon);
 
-            int finalStanza = j;
-            playStanzaButton.addActionListener(ActionEvent -> playColumn(finalStanza));
+            int stanza = j;
+            playStanzaButton.addActionListener(ActionEvent -> {
+                playColumn(stanza);
+                view.repaint();
+            });
             playButtonsPanel.add(playStanzaButton);
         }
     }
 
-    private void playColumn(int finalStanza) {
+    private void playColumn(int stanza)  {
 
-            try {
-                squares.playStanza(finalStanza);
-                squares.setStanza(finalStanza + 1);
-                Thread.sleep(delay);
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
+        squares.playStanza(stanza);
+        squares.setStanza(stanza + 1);
 
     }
 
@@ -139,6 +137,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
         Thread thread = new Thread(() -> {
             while (playing) {
                 squares.playNextLine();
+                view.repaint();
                 try {
                     Thread.sleep(delay);
                 } catch (InterruptedException e) {
