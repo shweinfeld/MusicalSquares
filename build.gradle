@@ -9,6 +9,18 @@ repositories {
     mavenCentral()
 }
 
+// https://stackoverflow.com/a/4894308/2700520
+jar {
+    manifest {
+        attributes "Main-Class": "musical.squares.Main"
+    }
+
+    // this will put all the dependencies in the jar file
+    from {
+        configurations.runtimeClasspath.collect {it.isDirectory() ? it : zipTree(it)}
+    }
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
