@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.net.URL;
 
 public class SquaresFrame extends JFrame implements ItemListener {
 
@@ -105,7 +106,8 @@ public class SquaresFrame extends JFrame implements ItemListener {
             JButton playStanzaButton = new JButton();
             //playStanzaButton.setBackground(new Color(47, 191, 51));
             playStanzaButton.setPreferredSize(new Dimension(SquaresView.CELL_SIZE, SquaresView.CELL_SIZE));
-            ImageIcon playIcon = new ImageIcon(new ImageIcon("icons8-circled-play-64.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+            URL imageUrl = ClassLoader.getSystemResource("icons8-circled-play-64.png");
+            ImageIcon playIcon = new ImageIcon(new ImageIcon(imageUrl).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             playStanzaButton.setIcon(playIcon);
 
             int stanza = j;
