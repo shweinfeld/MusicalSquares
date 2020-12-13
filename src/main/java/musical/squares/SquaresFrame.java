@@ -83,9 +83,9 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
         playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
         instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
-        JTextArea welcome = new JTextArea("Hello! Welcome to the most awesome instrument player!" +
-                "click as many boxes as you like to hear a sound. Then choose to play the row or the whole" +
-                " sequence. Additionally the scale and instrument can be chosen. Have fun!");
+        JTextArea welcome = new JTextArea("Welcome to Musical Squares! To play, click squares along the grid. Select a scale " +
+                "and an instrument from the select buttons. Hit play at the bottom of each column to play a single column or hit play on the right" +
+                " to play all the stanzas in a row.");
         welcome.setLineWrap(true);
         instructionPanel.add(welcome);
 
