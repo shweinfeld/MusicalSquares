@@ -3,6 +3,7 @@
 Welcome to Musical Squares. This project allows a user to user various instruments and different scales to create a song.    
 The application uses the Javax sound library to create notes.   
 
+You can check out the jar file [here](build/libs/MusicalSquares-1.0-SNAPSHOT.jar). 
   
  ### How to Use
  
@@ -16,10 +17,6 @@ Don't like your song? Hit the stop button on the right to stop midway.
    
 Wanna make another song? You can then hit clear to start again!     
 
- SCREENSHOTS TO BE ADDED WHEN THE UI IS DONE. 
- 
- 
- 
  
  ### Contributers
  
@@ -27,3 +24,5 @@ Wanna make another song? You can then hit clear to start again!
  Sara Orlin (https://github.com/SaraOrlian)   
  Ester Agishtein (https://github.com/ester-agishtein)
 
+
+![alt text](screenshots/musicalSquaresPic.png)
