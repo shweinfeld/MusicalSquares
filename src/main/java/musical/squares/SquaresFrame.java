@@ -21,6 +21,8 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private Box UIControlPanel;
     private JComboBox<Scales> scaleOptions;
     private JComboBox<Instruments> instrumentOptions;
+    private JLabel scaleLabel;
+    private JLabel instrumentLabel;
     private int delay = 200;
     boolean playing = false;
     ButtonGroup buttons = new ButtonGroup();
@@ -31,7 +33,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
         this.squares = view.getSquares();
         this.view = view;
 
-        setSize(1075, 370);
+        setSize(1175, 380);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Musical musical.squares.Squares");
         setLayout(new GridLayout(2, 1));
@@ -41,11 +43,11 @@ public class SquaresFrame extends JFrame implements ItemListener {
         setLayout(new BorderLayout());
 
         UIControlPanel = Box.createVerticalBox();
-        Dimension sizePanel = new Dimension(100, 80);
+        Dimension sizePanel = new Dimension(200, 80);
         UIControlPanel.setPreferredSize(sizePanel);
         UIControlPanel.setMaximumSize(sizePanel);
         UIControlPanel.setMinimumSize(sizePanel);
-        Dimension size = new Dimension(80, 40);
+        Dimension size = new Dimension(100, 30);
         UIControlPanel.add(createFiller(20, 30));
         buttons.add(play = createButton("Play", size));
         play.setAlignmentX(UIControlPanel.getAlignmentX());
@@ -62,10 +64,16 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
         scaleOptions = new JComboBox<>(Scales.values());
         scaleOptions.addItemListener(this);
+        scaleLabel = new JLabel("Choose Scale:");
+        scaleLabel.setAlignmentX(UIControlPanel.getAlignmentX());
+        UIControlPanel.add(scaleLabel);
         UIControlPanel.add(scaleOptions);
         UIControlPanel.add(createFiller(20, 20));
         instrumentOptions = new JComboBox<>(Instruments.values());
         instrumentOptions.addItemListener(this);
+        instrumentLabel = new JLabel("Choose Instrument:");
+        instrumentLabel.setAlignmentX(UIControlPanel.getAlignmentX());
+        UIControlPanel.add(instrumentLabel);
         UIControlPanel.add(instrumentOptions);
         UIControlPanel.add(createFiller(20, 20));
 
@@ -74,8 +82,10 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
         playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
         instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
-        TextField welcome = new TextField("Hello! Welcome to the most awesome instrument player!" +
-                "click as many boxes as you like and play the row, or the whole sequence");
+        JTextArea welcome = new JTextArea("Hello! Welcome to the most awesome instrument player!" +
+                "click as many boxes as you like to hear a sound. Then choose to play the row or the whole" +
+                " sequence. Additionally the scale and instrument can be chosen. Have fun!");
+        welcome.setLineWrap(true);
         instructionPanel.add(welcome);
 
 
