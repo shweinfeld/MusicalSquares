@@ -13,7 +13,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private final Squares squares;
     private final SquaresView view;
     private final JPanel playButtonsPanel;
-    private final JComboBox<Scales> scaleOptions;
+    private final JComboBox<Scale> scaleOptions;
     private final JComboBox<Instrument> instrumentOptions;
     private final int delay = 200;
     boolean playing = false;
@@ -57,7 +57,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
         UIControlPanel.add(clear);
         UIControlPanel.add(createFiller(20, 20));
 
-        scaleOptions = new JComboBox<>(Scales.values());
+        scaleOptions = new JComboBox<>(Scale.values());
         scaleOptions.addItemListener(this);
         JLabel scaleLabel = new JLabel("Choose Scale:");
         scaleLabel.setAlignmentX(UIControlPanel.getAlignmentX());
@@ -169,7 +169,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent event) {
         if (event.getSource() == scaleOptions) {
-            squares.changeScales((Scales) Objects.requireNonNull(scaleOptions.getSelectedItem()));
+            squares.changeScales((Scale) Objects.requireNonNull(scaleOptions.getSelectedItem()));
         }
         if (event.getSource() == instrumentOptions) {
             squares.changeInstrument((Instrument) Objects.requireNonNull(instrumentOptions.getSelectedItem()));
