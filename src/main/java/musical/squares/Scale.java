@@ -1,7 +1,7 @@
 package musical.squares;
 
-//TODO: Change name to Scale
-public enum Scales {
+
+public enum Scale {
     CLASSIC(1, 13, 25, 37, 49, 61, 73, 85, 97, 109, 121), //TODO:Add last note
     PENTATONIC(60, 62, 76, 67, 69, 72, 74, 76, 79, 81, 84, 86),
     CHROMATIC(72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83),
@@ -10,7 +10,7 @@ public enum Scales {
 
     private int[] scale;
 
-    private Scales(int ... scale) {
+    private Scale(int ... scale) {
         this.scale = scale;
     }
 
