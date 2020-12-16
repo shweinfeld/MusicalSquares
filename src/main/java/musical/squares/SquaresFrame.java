@@ -95,7 +95,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
         viewAndButtons.setBackground(Color.WHITE);
 
         stop.addActionListener(ActionEvent -> stopPlaying());
-        clear.addActionListener(ActionEvent -> squares.clearSquares());
+        clear.addActionListener(ActionEvent -> clearNotes());
         play.addActionListener(ActionEvent -> playNotes());
 
         //might want to separate out into a separate function
@@ -109,6 +109,8 @@ public class SquaresFrame extends JFrame implements ItemListener {
         add(UIControlPanel, BorderLayout.EAST);
 
     }
+
+
 
 
     private void createPlayStanzaButtons() {
@@ -139,6 +141,11 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private void stopPlaying() {
         playing = false;
         squares.setStanza(0);
+    }
+
+    private void clearNotes() {
+        squares.clearSquares();
+        view.repaint();
     }
 
     private void playNotes() {
