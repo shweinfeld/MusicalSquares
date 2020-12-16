@@ -1,5 +1,6 @@
 package musical.squares;
 
+//TODO: Change name to Instrument
 public enum Instruments {
     ACOUSTIC_GRAND_PIANO(1),
     HARPSICHORD(7),
@@ -15,8 +16,6 @@ public enum Instruments {
     SAX(67),
     FLUTE(74),
     BANJO(106);
-
-
 
     private int instrument;
 
