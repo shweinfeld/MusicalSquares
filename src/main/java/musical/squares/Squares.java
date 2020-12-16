@@ -5,9 +5,10 @@ import javax.sound.midi.*;
 public class Squares {
     public final static int ROW = 40;
     public final static int COL = 12;
-    private final boolean[][] squaresArray = new boolean[ROW][COL];
-    private int[] scale = Scales.CHROMATIC.getScale();
-    private final MidiChannel midiChannel;
+
+    private boolean[][] squaresArray = new boolean[ROW][COL];
+    private int[] scale = Scale.CHROMATIC.getScale();
+    private MidiChannel midiChannel;
     private int pitch;
     private int stanza = 0;
 
@@ -28,7 +29,7 @@ public class Squares {
         }
     }
 
-    public void changeScales(Scales updatedScale){
+    public void changeScales(Scale updatedScale){
         scale = updatedScale.getScale();
     }
 
@@ -70,7 +71,7 @@ public class Squares {
         return squaresArray[row][col];
     }
 
-    public void setCell(int row, int col, boolean value) {
-        squaresArray[row][col] = value;
+    public void toggleCell(int row, int col){
+        squaresArray[row][col] = !squaresArray[row][col];
     }
 }
