@@ -36,11 +36,10 @@ public class Squares {
         midiChannel.programChange( updatedInstrument.getInstrument());
     }
 
-    //TODO: UNCLEAR - fix row and column switch
-    public void playStanza(int stanza){
-        for (int col = 0; col < COL; col++) {
-            if (squaresArray[stanza][col]) {
-                pitch = scale[col];
+    public void playStanza(int row){
+        for (int stanza = 0; stanza < COL; stanza++) {
+            if (squaresArray[row][stanza]) {
+                pitch = scale[stanza];
                 SoundThread soundThread = new SoundThread(pitch, midiChannel); // pass in pitch to play
                 soundThread.start();
             }

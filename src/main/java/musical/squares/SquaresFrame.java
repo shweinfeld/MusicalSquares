@@ -105,18 +105,18 @@ public class SquaresFrame extends JFrame implements ItemListener {
             URL imageUrl = ClassLoader.getSystemResource("icons8-circled-play-64.png");
             ImageIcon playIcon = new ImageIcon(new ImageIcon(imageUrl).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             playStanzaButton.setIcon(playIcon);
-            int stanza = j;
+            int row = j;
             playStanzaButton.addActionListener(ActionEvent -> {
-                playColumn(stanza);
+                playColumn(row);
                 view.repaint();
             });
             playButtonsPanel.add(playStanzaButton);
         }
     }
 
-    private void playColumn(int stanza)  {
-        squares.playStanza(stanza);
-        squares.setStanza(stanza + 1);
+    private void playColumn(int row)  {
+        squares.playStanza(row);
+        squares.setStanza(row + 1);
     }
 
     private void stopPlaying() {
