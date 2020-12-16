@@ -6,23 +6,16 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.net.URL;
+import java.util.Objects;
 
 public class SquaresFrame extends JFrame implements ItemListener {
 
-    private Squares squares;
-    private SquaresView view;
-    private JButton play;
-    private JButton clear;
-    private JButton stop;
-    private JPanel playButtonsPanel;
-    private JPanel instructionPanel;
-    private JPanel viewAndButtons;
-    private Box UIControlPanel;
-    private JComboBox<Scale> scaleOptions;
-    private JComboBox<Instruments> instrumentOptions;
-    private JLabel scaleLabel;
-    private JLabel instrumentLabel;
-    private int delay = 200;
+    private final Squares squares;
+    private final SquaresView view;
+    private final JPanel playButtonsPanel;
+    private final JComboBox<Scale> scaleOptions;
+    private final JComboBox<Instrument> instrumentOptions;
+    private final int delay = 200;
     boolean playing = false;
     ButtonGroup buttons = new ButtonGroup();
 
@@ -41,21 +34,24 @@ public class SquaresFrame extends JFrame implements ItemListener {
         setTitle("Musical Squares");
         setLayout(new BorderLayout());
 
-        UIControlPanel = Box.createVerticalBox();
+        Box UIControlPanel = Box.createVerticalBox();
         Dimension sizePanel = new Dimension(200, 80);
         UIControlPanel.setPreferredSize(sizePanel);
         UIControlPanel.setMaximumSize(sizePanel);
         UIControlPanel.setMinimumSize(sizePanel);
         Dimension size = new Dimension(100, 30);
         UIControlPanel.add(createFiller(20, 30));
+        JButton play;
         buttons.add(play = createButton("Play", size));
         play.setAlignmentX(UIControlPanel.getAlignmentX());
         UIControlPanel.add(play);
         UIControlPanel.add(createFiller(20, 20));
+        JButton stop;
         buttons.add(stop = createButton("Stop", size));
         stop.setAlignmentX(UIControlPanel.getAlignmentX());
         UIControlPanel.add(stop);
         UIControlPanel.add(createFiller(20, 20));
+        JButton clear;
         buttons.add(clear = createButton("Clear", size));
         clear.setAlignmentX(UIControlPanel.getAlignmentX());
         UIControlPanel.add(clear);
@@ -63,14 +59,14 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
         scaleOptions = new JComboBox<>(Scale.values());
         scaleOptions.addItemListener(this);
-        scaleLabel = new JLabel("Choose Scale:");
+        JLabel scaleLabel = new JLabel("Choose Scale:");
         scaleLabel.setAlignmentX(UIControlPanel.getAlignmentX());
         UIControlPanel.add(scaleLabel);
         UIControlPanel.add(scaleOptions);
         UIControlPanel.add(createFiller(20, 20));
-        instrumentOptions = new JComboBox<>(Instruments.values());
+        instrumentOptions = new JComboBox<>(Instrument.values());
         instrumentOptions.addItemListener(this);
-        instrumentLabel = new JLabel("Choose Instrument:");
+        JLabel instrumentLabel = new JLabel("Choose Instrument:");
         instrumentLabel.setAlignmentX(UIControlPanel.getAlignmentX());
         UIControlPanel.add(instrumentLabel);
         UIControlPanel.add(instrumentOptions);
@@ -80,13 +76,14 @@ public class SquaresFrame extends JFrame implements ItemListener {
         UIControlPanel.setBorder(blackline);
 
         playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
-        instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
+        JPanel instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
         JTextArea welcome = new JTextArea("Welcome to Musical Squares! To play, click squares along the grid. Select a scale " +
                 "and an instrument from the select buttons. \nHit play at the bottom of each column to play a single column or hit play on the right" +
                 " to play all the stanzas in a row.");
         welcome.setLineWrap(true);
+        welcome.setEditable(false);
         instructionPanel.add(welcome);
-        viewAndButtons = new JPanel(new BorderLayout());
+        JPanel viewAndButtons = new JPanel(new BorderLayout());
         viewAndButtons.setBackground(Color.WHITE);
         stop.addActionListener(ActionEvent -> stopPlaying());
         clear.addActionListener(ActionEvent -> clearNotes());
@@ -108,18 +105,18 @@ public class SquaresFrame extends JFrame implements ItemListener {
             URL imageUrl = ClassLoader.getSystemResource("icons8-circled-play-64.png");
             ImageIcon playIcon = new ImageIcon(new ImageIcon(imageUrl).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             playStanzaButton.setIcon(playIcon);
-            int stanza = j;
+            int row = j;
             playStanzaButton.addActionListener(ActionEvent -> {
-                playColumn(stanza);
+                playColumn(row);
                 view.repaint();
             });
             playButtonsPanel.add(playStanzaButton);
         }
     }
 
-    private void playColumn(int stanza)  {
-        squares.playStanza(stanza);
-        squares.setStanza(stanza + 1);
+    private void playColumn(int row)  {
+        squares.playStanza(row);
+        squares.setStanza(row + 1);
     }
 
     private void stopPlaying() {
@@ -172,10 +169,10 @@ public class SquaresFrame extends JFrame implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent event) {
         if (event.getSource() == scaleOptions) {
-            squares.changeScales((Scale) scaleOptions.getSelectedItem());
+            squares.changeScales((Scale) Objects.requireNonNull(scaleOptions.getSelectedItem()));
         }
         if (event.getSource() == instrumentOptions) {
-            squares.changeInstrument((Instruments) instrumentOptions.getSelectedItem());
+            squares.changeInstrument((Instrument) Objects.requireNonNull(instrumentOptions.getSelectedItem()));
         }
     }
 }

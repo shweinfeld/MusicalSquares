@@ -16,7 +16,6 @@ public class SquareMouseListener implements java.awt.event.MouseListener{
         int rowIndex = row / SquaresView.BORDERED_CELL_SIZE;
         int colIndex = col/ SquaresView.BORDERED_CELL_SIZE;
 
-
         squares.toggleCell(rowIndex, colIndex);
         if (squares.getCell(rowIndex,colIndex)) {
             squares.playNote(colIndex);
