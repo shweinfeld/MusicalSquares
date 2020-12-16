@@ -6,10 +6,9 @@ public class Squares {
     public final static int ROW = 40;
     public final static int COL = 12;
     private boolean[][] squaresArray = new boolean[ROW][COL];
-    private int[] scale = Scales.CHROMATIC.getScale();
+    private int[] scale = Scale.CHROMATIC.getScale();
     private MidiChannel midiChannel;
     private int pitch;
-    private SoundThread soundThread;
     private int stanza = 0;
 
     public Squares(MidiChannel midiChannel) {
@@ -29,20 +28,19 @@ public class Squares {
         }
     }
 
-    public void changeScales(Scales updatedScale){
+    public void changeScales(Scale updatedScale){
         scale = updatedScale.getScale();
     }
 
-    public void changeInstrument(Instruments updatedInstrument) {
+    public void changeInstrument(Instrument updatedInstrument) {
         midiChannel.programChange( updatedInstrument.getInstrument());
     }
 
-    //TODO: UNCLEAR - fix row and column switch
-    public void playStanza(int stanza){
-        for (int col = 0; col < COL; col++) {
-            if (squaresArray[stanza][col]) {
-                pitch = scale[col];
-                soundThread = new SoundThread(pitch, midiChannel); // pass in pitch to play
+    public void playStanza(int row){
+        for (int stanza = 0; stanza < COL; stanza++) {
+            if (squaresArray[row][stanza]) {
+                pitch = scale[stanza];
+                SoundThread soundThread = new SoundThread(pitch, midiChannel); // pass in pitch to play
                 soundThread.start();
             }
         }
@@ -72,7 +70,7 @@ public class Squares {
         return squaresArray[row][col];
     }
 
-    public void setCell(int row, int col, boolean value) {
-        squaresArray[row][col] = value;
+    public void toggleCell(int row, int col){
+        squaresArray[row][col] = !squaresArray[row][col];
     }
 }
