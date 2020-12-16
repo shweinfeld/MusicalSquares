@@ -72,7 +72,7 @@ public class Squares {
         return squaresArray[row][col];
     }
 
-    public void setCell(int row, int col, boolean value) {
-        squaresArray[row][col] = value;
+    public void toggleCell(int row, int col){
+        squaresArray[row][col] = !squaresArray[row][col];
     }
 }
