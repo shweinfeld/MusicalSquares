@@ -88,30 +88,19 @@ public class SquaresFrame extends JFrame implements ItemListener {
                 " to play all the stanzas in a row.");
         welcome.setLineWrap(true);
         instructionPanel.add(welcome);
-
-
-
         viewAndButtons = new JPanel(new BorderLayout());
         viewAndButtons.setBackground(Color.WHITE);
-
         stop.addActionListener(ActionEvent -> stopPlaying());
         clear.addActionListener(ActionEvent -> clearNotes());
         play.addActionListener(ActionEvent -> playNotes());
-
-        //might want to separate out into a separate function
         createPlayStanzaButtons();
         view.addMouseListener(listener);
         viewAndButtons.add(instructionPanel, BorderLayout.NORTH);
         viewAndButtons.add(playButtonsPanel, BorderLayout.SOUTH);
         viewAndButtons.add(view, BorderLayout.CENTER);
         add(viewAndButtons);
-
         add(UIControlPanel, BorderLayout.EAST);
-
     }
-
-
-
 
     private void createPlayStanzaButtons() {
         for (int j = 0; j < Squares.ROW; j++) {
@@ -121,7 +110,6 @@ public class SquaresFrame extends JFrame implements ItemListener {
             URL imageUrl = ClassLoader.getSystemResource("icons8-circled-play-64.png");
             ImageIcon playIcon = new ImageIcon(new ImageIcon(imageUrl).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             playStanzaButton.setIcon(playIcon);
-
             int stanza = j;
             playStanzaButton.addActionListener(ActionEvent -> {
                 playColumn(stanza);
@@ -132,10 +120,8 @@ public class SquaresFrame extends JFrame implements ItemListener {
     }
 
     private void playColumn(int stanza)  {
-
         squares.playStanza(stanza);
         squares.setStanza(stanza + 1);
-
     }
 
     private void stopPlaying() {
@@ -187,7 +173,6 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent event) {
-
         if (event.getSource() == scaleOptions) {
             squares.changeScales((Scales) scaleOptions.getSelectedItem());
         }

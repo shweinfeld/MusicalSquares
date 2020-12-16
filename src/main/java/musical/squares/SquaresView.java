@@ -10,12 +10,10 @@ public class SquaresView extends JComponent {
     private  Color deadCellsColor = Color.lightGray;
     private final Squares squares;
 
-
     public SquaresView(Squares squares) {
         this.squares = squares;
 
     }
-
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -28,9 +26,6 @@ public class SquaresView extends JComponent {
         return squares;
     }
 
-
-
-
     private void paintOnStatus(Graphics g) {
 
         for (int i = 0; i < Squares.ROW; i++) {
@@ -41,9 +36,8 @@ public class SquaresView extends JComponent {
 
             }
         }
-
     }
-
+//TODO: make ternary statement
     public void setOffColor(int row){
         if(row == squares.getStanza() - 1){
             deadCellsColor = Color.blue;
