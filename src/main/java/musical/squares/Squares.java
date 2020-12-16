@@ -5,11 +5,10 @@ import javax.sound.midi.*;
 public class Squares {
     public final static int ROW = 40;
     public final static int COL = 12;
-    private boolean[][] squaresArray = new boolean[ROW][COL];
+    private final boolean[][] squaresArray = new boolean[ROW][COL];
     private int[] scale = Scales.CHROMATIC.getScale();
-    private MidiChannel midiChannel;
+    private final MidiChannel midiChannel;
     private int pitch;
-    private SoundThread soundThread;
     private int stanza = 0;
 
     public Squares(MidiChannel midiChannel) {
@@ -33,7 +32,7 @@ public class Squares {
         scale = updatedScale.getScale();
     }
 
-    public void changeInstrument(Instruments updatedInstrument) {
+    public void changeInstrument(Instrument updatedInstrument) {
         midiChannel.programChange( updatedInstrument.getInstrument());
     }
 
@@ -42,7 +41,7 @@ public class Squares {
         for (int col = 0; col < COL; col++) {
             if (squaresArray[stanza][col]) {
                 pitch = scale[col];
-                soundThread = new SoundThread(pitch, midiChannel); // pass in pitch to play
+                SoundThread soundThread = new SoundThread(pitch, midiChannel); // pass in pitch to play
                 soundThread.start();
             }
         }
