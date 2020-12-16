@@ -6,7 +6,7 @@ public class Squares {
     public final static int ROW = 40;
     public final static int COL = 12;
     private boolean[][] squaresArray = new boolean[ROW][COL];
-    private int[] scale = Scales.CHROMATIC.getScale();
+    private int[] scale = Scale.CHROMATIC.getScale();
     private MidiChannel midiChannel;
     private int pitch;
     private SoundThread soundThread;
@@ -29,7 +29,7 @@ public class Squares {
         }
     }
 
-    public void changeScales(Scales updatedScale){
+    public void changeScales(Scale updatedScale){
         scale = updatedScale.getScale();
     }
 

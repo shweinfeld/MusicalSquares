@@ -3,8 +3,6 @@ package musical.squares;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.net.URL;
@@ -20,7 +18,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private JPanel instructionPanel;
     private JPanel viewAndButtons;
     private Box UIControlPanel;
-    private JComboBox<Scales> scaleOptions;
+    private JComboBox<Scale> scaleOptions;
     private JComboBox<Instruments> instrumentOptions;
     private JLabel scaleLabel;
     private JLabel instrumentLabel;
@@ -63,7 +61,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
         UIControlPanel.add(clear);
         UIControlPanel.add(createFiller(20, 20));
 
-        scaleOptions = new JComboBox<>(Scales.values());
+        scaleOptions = new JComboBox<>(Scale.values());
         scaleOptions.addItemListener(this);
         scaleLabel = new JLabel("Choose Scale:");
         scaleLabel.setAlignmentX(UIControlPanel.getAlignmentX());
@@ -174,7 +172,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent event) {
         if (event.getSource() == scaleOptions) {
-            squares.changeScales((Scales) scaleOptions.getSelectedItem());
+            squares.changeScales((Scale) scaleOptions.getSelectedItem());
         }
         if (event.getSource() == instrumentOptions) {
             squares.changeInstrument((Instruments) instrumentOptions.getSelectedItem());
