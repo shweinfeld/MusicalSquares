@@ -50,9 +50,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private void setUpSquaresAndPlays(SquareMouseListener listener, SquaresView view) {
         squaresAndPlays = new JPanel(new BorderLayout());
         squaresAndPlays.setBackground(Color.WHITE);
-        stop.addActionListener(ActionEvent -> stopPlaying());
-        clear.addActionListener(ActionEvent -> clearNotes());
-        play.addActionListener(ActionEvent -> playNotes());
+
         createPlayStanzaButtons();
         view.addMouseListener(listener);
         squaresAndPlays.add(instructionPanel, BorderLayout.NORTH);
@@ -107,18 +105,26 @@ public class SquaresFrame extends JFrame implements ItemListener {
     }
 
     private void setUpControlButtons(Dimension buttonSize) {
+
         controlButtons.add(play = createButton("Play", buttonSize));
+        play.addActionListener(ActionEvent -> playNotes());
         play.setAlignmentX(UIControlPanel.getAlignmentX());
         UIControlPanel.add(play);
         UIControlPanel.add(createFiller(20, 20));
+
         controlButtons.add(stop = createButton("Stop", buttonSize));
+        stop.addActionListener(ActionEvent -> stopPlaying());
         stop.setAlignmentX(UIControlPanel.getAlignmentX());
         UIControlPanel.add(stop);
         UIControlPanel.add(createFiller(20, 20));
+
         controlButtons.add(clear = createButton("Clear", buttonSize));
         clear.setAlignmentX(UIControlPanel.getAlignmentX());
+        clear.addActionListener(ActionEvent -> clearNotes());
         UIControlPanel.add(clear);
         UIControlPanel.add(createFiller(20, 20));
+
+
     }
 
     private void sizePanel(Dimension panelSize) {
