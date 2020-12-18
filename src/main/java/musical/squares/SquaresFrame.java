@@ -35,7 +35,6 @@ public class SquaresFrame extends JFrame implements ItemListener {
         setSize(1175, 380);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Musical musical.squares.Squares");
-        setLayout(new GridLayout(2, 1));
         setResizable(false);
 
         setTitle("Musical Squares");
