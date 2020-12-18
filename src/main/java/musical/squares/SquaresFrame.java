@@ -11,9 +11,6 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     private final Squares SQUARES;
     private final SquaresView VIEW;
-    private JButton play;
-    private JButton clear;
-    private JButton stop;
     private JPanel playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
     private JPanel instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
     private JPanel squaresAndPlays;
@@ -116,6 +113,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     }
 
     private void setUpClearButton(Dimension buttonSize) {
+        JButton clear;
         controlButtons.add(clear = createButton("Clear", buttonSize));
         clear.setAlignmentX(UIControlPanel.getAlignmentX());
         clear.addActionListener(ActionEvent -> clearNotes());
@@ -123,6 +121,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     }
 
     private void setUpStopButton(Dimension buttonSize) {
+        JButton stop;
         controlButtons.add(stop = createButton("Stop", buttonSize));
         stop.addActionListener(ActionEvent -> stopPlaying());
         stop.setAlignmentX(UIControlPanel.getAlignmentX());
@@ -130,6 +129,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     }
 
     private void setUpPlayButton(Dimension buttonSize) {
+        JButton play;
         controlButtons.add(play = createButton("Play", buttonSize));
         play.addActionListener(ActionEvent -> playNotes());
         play.setAlignmentX(UIControlPanel.getAlignmentX());
