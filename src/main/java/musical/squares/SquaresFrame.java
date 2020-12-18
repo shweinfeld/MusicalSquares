@@ -24,7 +24,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private JLabel instrumentLabel;
     private int delay = 200;
     boolean playing = false;
-    ButtonGroup buttons = new ButtonGroup();
+    ButtonGroup controlButtons = new ButtonGroup();
 
 
     public SquaresFrame(SquareMouseListener listener, SquaresView view) {
@@ -41,43 +41,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
         setTitle("Musical Squares");
         setLayout(new BorderLayout());
 
-        UIControlPanel = Box.createVerticalBox();
-        Dimension sizePanel = new Dimension(200, 80);
-        UIControlPanel.setPreferredSize(sizePanel);
-        UIControlPanel.setMaximumSize(sizePanel);
-        UIControlPanel.setMinimumSize(sizePanel);
-        Dimension size = new Dimension(100, 30);
-        UIControlPanel.add(createFiller(20, 30));
-        buttons.add(play = createButton("Play", size));
-        play.setAlignmentX(UIControlPanel.getAlignmentX());
-        UIControlPanel.add(play);
-        UIControlPanel.add(createFiller(20, 20));
-        buttons.add(stop = createButton("Stop", size));
-        stop.setAlignmentX(UIControlPanel.getAlignmentX());
-        UIControlPanel.add(stop);
-        UIControlPanel.add(createFiller(20, 20));
-        buttons.add(clear = createButton("Clear", size));
-        clear.setAlignmentX(UIControlPanel.getAlignmentX());
-        UIControlPanel.add(clear);
-        UIControlPanel.add(createFiller(20, 20));
-
-        scaleOptions = new JComboBox<>(Scale.values());
-        scaleOptions.addItemListener(this);
-        scaleLabel = new JLabel("Choose Scale:");
-        scaleLabel.setAlignmentX(UIControlPanel.getAlignmentX());
-        UIControlPanel.add(scaleLabel);
-        UIControlPanel.add(scaleOptions);
-        UIControlPanel.add(createFiller(20, 20));
-        instrumentOptions = new JComboBox<>(Instruments.values());
-        instrumentOptions.addItemListener(this);
-        instrumentLabel = new JLabel("Choose Instrument:");
-        instrumentLabel.setAlignmentX(UIControlPanel.getAlignmentX());
-        UIControlPanel.add(instrumentLabel);
-        UIControlPanel.add(instrumentOptions);
-        UIControlPanel.add(createFiller(20, 20));
-
-        Border blackline = BorderFactory.createLineBorder(Color.black);
-        UIControlPanel.setBorder(blackline);
+        setUpControlPanel();
 
         playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
         instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
@@ -98,6 +62,66 @@ public class SquaresFrame extends JFrame implements ItemListener {
         viewAndButtons.add(view, BorderLayout.CENTER);
         add(viewAndButtons);
         add(UIControlPanel, BorderLayout.EAST);
+    }
+
+    private void setUpControlPanel() {
+        Dimension panelSize = new Dimension(200, 80);
+        sizePanel(panelSize);
+        UIControlPanel.add(createFiller(20, 30));
+        Dimension buttonSize = new Dimension(100, 30);
+        setUpControlButtons(buttonSize);
+
+        setUpScaleControl();
+        setUpInstrumentControl();
+        Border blackLine = BorderFactory.createLineBorder(Color.black);
+        addComponentsToControlPanel(blackLine);
+    }
+
+    private void addComponentsToControlPanel(Border blackLine) {
+
+        UIControlPanel.add(scaleLabel);
+        UIControlPanel.add(scaleOptions);
+        UIControlPanel.add(createFiller(20, 20));
+        UIControlPanel.add(instrumentLabel);
+        UIControlPanel.add(instrumentOptions);
+        UIControlPanel.add(createFiller(20, 20));
+        UIControlPanel.setBorder(blackLine);
+    }
+
+    private void setUpInstrumentControl() {
+        instrumentOptions = new JComboBox<>(Instruments.values());
+        instrumentOptions.addItemListener(this);
+        instrumentLabel = new JLabel("Choose Instrument:");
+        instrumentLabel.setAlignmentX(UIControlPanel.getAlignmentX());
+    }
+
+    private void setUpScaleControl() {
+        scaleOptions = new JComboBox<>(Scale.values());
+        scaleOptions.addItemListener(this);
+        scaleLabel = new JLabel("Choose Scale:");
+        scaleLabel.setAlignmentX(UIControlPanel.getAlignmentX());
+    }
+
+    private void setUpControlButtons(Dimension buttonSize) {
+        controlButtons.add(play = createButton("Play", buttonSize));
+        play.setAlignmentX(UIControlPanel.getAlignmentX());
+        UIControlPanel.add(play);
+        UIControlPanel.add(createFiller(20, 20));
+        controlButtons.add(stop = createButton("Stop", buttonSize));
+        stop.setAlignmentX(UIControlPanel.getAlignmentX());
+        UIControlPanel.add(stop);
+        UIControlPanel.add(createFiller(20, 20));
+        controlButtons.add(clear = createButton("Clear", buttonSize));
+        clear.setAlignmentX(UIControlPanel.getAlignmentX());
+        UIControlPanel.add(clear);
+        UIControlPanel.add(createFiller(20, 20));
+    }
+
+    private void sizePanel(Dimension panelSize) {
+        UIControlPanel = Box.createVerticalBox();
+        UIControlPanel.setPreferredSize(panelSize);
+        UIControlPanel.setMaximumSize(panelSize);
+        UIControlPanel.setMinimumSize(panelSize);
     }
 
     private void createPlayStanzaButtons() {
