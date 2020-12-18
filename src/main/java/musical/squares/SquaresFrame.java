@@ -42,11 +42,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
         setUpControlPanel();
 
-        JTextArea welcome = new JTextArea("Welcome to Musical Squares! To play, click squares along the grid. Select a scale " +
-                "and an instrument from the select buttons. \nHit play at the bottom of each column to play a single column or hit play on the right" +
-                " to play all the stanzas in a row.");
-        welcome.setLineWrap(true);
-        instructionPanel.add(welcome);
+        setUpInstructionPanel();
         viewAndButtons = new JPanel(new BorderLayout());
         viewAndButtons.setBackground(Color.WHITE);
         stop.addActionListener(ActionEvent -> stopPlaying());
@@ -59,6 +55,14 @@ public class SquaresFrame extends JFrame implements ItemListener {
         viewAndButtons.add(view, BorderLayout.CENTER);
         add(viewAndButtons);
         add(UIControlPanel, BorderLayout.EAST);
+    }
+
+    private void setUpInstructionPanel() {
+        JTextArea welcome = new JTextArea("Welcome to Musical Squares! To play, click squares along the grid. Select a scale " +
+                "and an instrument from the select buttons. \nHit play at the bottom of each column to play a single column or hit play on the right" +
+                " to play all the stanzas in a row.");
+        welcome.setLineWrap(true);
+        instructionPanel.add(welcome);
     }
 
     private void setUpControlPanel() {
