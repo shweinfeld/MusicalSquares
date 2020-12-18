@@ -9,8 +9,8 @@ import java.net.URL;
 
 public class SquaresFrame extends JFrame implements ItemListener {
 
-    private Squares squares;
-    private SquaresView view;
+    private final Squares SQUARES;
+    private final SquaresView VIEW;
     private JButton play;
     private JButton clear;
     private JButton stop;
@@ -22,15 +22,15 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private JComboBox<Instruments> instrumentOptions;
     private JLabel scaleLabel;
     private JLabel instrumentLabel;
-    private int delay = 200;
+    private final int DELAY = 200;
     boolean playing = false;
     ButtonGroup controlButtons = new ButtonGroup();
 
 
     public SquaresFrame(SquareMouseListener listener, SquaresView view) {
 
-        this.squares = view.getSquares();
-        this.view = view;
+        this.SQUARES = view.getSquares();
+        this.VIEW = view;
 
         setSize(1175, 380);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -139,25 +139,25 @@ public class SquaresFrame extends JFrame implements ItemListener {
             int stanza = j;
             playStanzaButton.addActionListener(ActionEvent -> {
                 playColumn(stanza);
-                view.repaint();
+                VIEW.repaint();
             });
             playButtonsPanel.add(playStanzaButton);
         }
     }
 
     private void playColumn(int stanza)  {
-        squares.playStanza(stanza);
-        squares.setStanza(stanza + 1);
+        SQUARES.playStanza(stanza);
+        SQUARES.setStanza(stanza + 1);
     }
 
     private void stopPlaying() {
         playing = false;
-        squares.setStanza(0);
+        SQUARES.setStanza(0);
     }
 
     private void clearNotes() {
-        squares.clearSquares();
-        view.repaint();
+        SQUARES.clearSquares();
+        VIEW.repaint();
     }
 
     private void playNotes() {
@@ -165,17 +165,17 @@ public class SquaresFrame extends JFrame implements ItemListener {
             return;
         }
         playing = true;
-        squares.setStanza(0);
-        view.repaint();
+        SQUARES.setStanza(0);
+        VIEW.repaint();
         Thread thread = new Thread(() -> {
             while (playing) {
-                squares.playNextLine();
+                SQUARES.playNextLine();
                 try {
-                    Thread.sleep(delay);
+                    Thread.sleep(DELAY);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                view.repaint();
+                VIEW.repaint();
             }
         });
         thread.start();
@@ -200,10 +200,10 @@ public class SquaresFrame extends JFrame implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent event) {
         if (event.getSource() == scaleOptions) {
-            squares.changeScales((Scale) scaleOptions.getSelectedItem());
+            SQUARES.changeScales((Scale) scaleOptions.getSelectedItem());
         }
         if (event.getSource() == instrumentOptions) {
-            squares.changeInstrument((Instruments) instrumentOptions.getSelectedItem());
+            SQUARES.changeInstrument((Instruments) instrumentOptions.getSelectedItem());
         }
     }
 }
