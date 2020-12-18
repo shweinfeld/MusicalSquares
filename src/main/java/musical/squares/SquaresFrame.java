@@ -16,7 +16,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private JButton stop;
     private JPanel playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
     private JPanel instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
-    private JPanel viewAndButtons;
+    private JPanel squaresAndPlays;
     private Box UIControlPanel;
     private JComboBox<Scale> scaleOptions;
     private JComboBox<Instruments> instrumentOptions;
@@ -34,27 +34,30 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
         setSize(1175, 380);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Musical musical.squares.Squares");
         setResizable(false);
-
         setTitle("Musical Squares");
         setLayout(new BorderLayout());
 
         setUpControlPanel();
 
         setUpInstructionPanel();
-        viewAndButtons = new JPanel(new BorderLayout());
-        viewAndButtons.setBackground(Color.WHITE);
+        setUpSquaresAndPlays(listener, view);
+
+        add(squaresAndPlays);
+        add(UIControlPanel, BorderLayout.EAST);
+    }
+
+    private void setUpSquaresAndPlays(SquareMouseListener listener, SquaresView view) {
+        squaresAndPlays = new JPanel(new BorderLayout());
+        squaresAndPlays.setBackground(Color.WHITE);
         stop.addActionListener(ActionEvent -> stopPlaying());
         clear.addActionListener(ActionEvent -> clearNotes());
         play.addActionListener(ActionEvent -> playNotes());
         createPlayStanzaButtons();
         view.addMouseListener(listener);
-        viewAndButtons.add(instructionPanel, BorderLayout.NORTH);
-        viewAndButtons.add(playButtonsPanel, BorderLayout.SOUTH);
-        viewAndButtons.add(view, BorderLayout.CENTER);
-        add(viewAndButtons);
-        add(UIControlPanel, BorderLayout.EAST);
+        squaresAndPlays.add(instructionPanel, BorderLayout.NORTH);
+        squaresAndPlays.add(playButtonsPanel, BorderLayout.SOUTH);
+        squaresAndPlays.add(view, BorderLayout.CENTER);
     }
 
     private void setUpInstructionPanel() {
