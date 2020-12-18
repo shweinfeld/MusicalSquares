@@ -105,26 +105,35 @@ public class SquaresFrame extends JFrame implements ItemListener {
     }
 
     private void setUpControlButtons(Dimension buttonSize) {
-
-        controlButtons.add(play = createButton("Play", buttonSize));
-        play.addActionListener(ActionEvent -> playNotes());
-        play.setAlignmentX(UIControlPanel.getAlignmentX());
-        UIControlPanel.add(play);
+        setUpPlayButton(buttonSize);
         UIControlPanel.add(createFiller(20, 20));
 
-        controlButtons.add(stop = createButton("Stop", buttonSize));
-        stop.addActionListener(ActionEvent -> stopPlaying());
-        stop.setAlignmentX(UIControlPanel.getAlignmentX());
-        UIControlPanel.add(stop);
+        setUpStopButton(buttonSize);
         UIControlPanel.add(createFiller(20, 20));
 
+        setUpClearButton(buttonSize);
+        UIControlPanel.add(createFiller(20, 20));
+    }
+
+    private void setUpClearButton(Dimension buttonSize) {
         controlButtons.add(clear = createButton("Clear", buttonSize));
         clear.setAlignmentX(UIControlPanel.getAlignmentX());
         clear.addActionListener(ActionEvent -> clearNotes());
         UIControlPanel.add(clear);
-        UIControlPanel.add(createFiller(20, 20));
+    }
 
+    private void setUpStopButton(Dimension buttonSize) {
+        controlButtons.add(stop = createButton("Stop", buttonSize));
+        stop.addActionListener(ActionEvent -> stopPlaying());
+        stop.setAlignmentX(UIControlPanel.getAlignmentX());
+        UIControlPanel.add(stop);
+    }
 
+    private void setUpPlayButton(Dimension buttonSize) {
+        controlButtons.add(play = createButton("Play", buttonSize));
+        play.addActionListener(ActionEvent -> playNotes());
+        play.setAlignmentX(UIControlPanel.getAlignmentX());
+        UIControlPanel.add(play);
     }
 
     private void sizePanel(Dimension panelSize) {
