@@ -11,8 +11,8 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     private final Squares SQUARES;
     private final SquaresView VIEW;
-    private JPanel playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
-    private JPanel instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
+    private final JPanel playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
+    private final JPanel instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
     private JPanel squaresAndPlays;
     private Box UIControlPanel;
     private JComboBox<Scale> scaleOptions;
@@ -72,7 +72,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
         setUpControlButtons();
         setUpScaleControl();
         setUpInstrumentControl();
-        
+
         addComponentsToControlPanel();
     }
 
