@@ -20,7 +20,8 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private JLabel instrumentLabel;
     private final int DELAY = 200;
     boolean playing = false;
-    ButtonGroup controlButtons = new ButtonGroup();
+    private final ButtonGroup CONTROL_BUTTONS = new ButtonGroup();
+    private  final String PLAY_ICON_IMAGE = "icons8-circled-play-64.png";
 
 
     public SquaresFrame(SquareMouseListener listener, SquaresView view) {
@@ -111,7 +112,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     private void setUpClearButton(Dimension buttonSize) {
         JButton clear;
-        controlButtons.add(clear = createButton("Clear", buttonSize));
+        CONTROL_BUTTONS.add(clear = createButton("Clear", buttonSize));
         clear.setAlignmentX(UIControlPanel.getAlignmentX());
         clear.addActionListener(ActionEvent -> clearNotes());
         UIControlPanel.add(clear);
@@ -119,7 +120,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     private void setUpStopButton(Dimension buttonSize) {
         JButton stop;
-        controlButtons.add(stop = createButton("Stop", buttonSize));
+        CONTROL_BUTTONS.add(stop = createButton("Stop", buttonSize));
         stop.addActionListener(ActionEvent -> stopPlaying());
         stop.setAlignmentX(UIControlPanel.getAlignmentX());
         UIControlPanel.add(stop);
@@ -127,7 +128,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     private void setUpPlayButton(Dimension buttonSize) {
         JButton play;
-        controlButtons.add(play = createButton("Play", buttonSize));
+        CONTROL_BUTTONS.add(play = createButton("Play", buttonSize));
         play.addActionListener(ActionEvent -> playNotes());
         play.setAlignmentX(UIControlPanel.getAlignmentX());
         UIControlPanel.add(play);
@@ -144,7 +145,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
         for (int j = 0; j < Squares.ROW; j++) {
             JButton playStanzaButton = new JButton();
             playStanzaButton.setPreferredSize(new Dimension(SquaresView.CELL_SIZE, SquaresView.CELL_SIZE));
-            URL imageUrl = ClassLoader.getSystemResource("icons8-circled-play-64.png");
+            URL imageUrl = ClassLoader.getSystemResource(PLAY_ICON_IMAGE);
             ImageIcon playIcon = new ImageIcon(new ImageIcon(imageUrl).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             playStanzaButton.setIcon(playIcon);
             int stanza = j;
