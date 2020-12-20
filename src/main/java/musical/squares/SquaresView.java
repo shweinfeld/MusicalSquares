@@ -37,12 +37,9 @@ public class SquaresView extends JComponent {
             }
         }
     }
-//TODO: make ternary statement
+
     public void setOffColor(int row){
-        if(row == squares.getStanza() - 1){
-            deadCellsColor = Color.blue;
-        }
-        else { deadCellsColor = Color.lightGray;}
+        deadCellsColor = (row == squares.getStanza() - 1)? Color.BLUE : Color.LIGHT_GRAY;
     }
 
 }

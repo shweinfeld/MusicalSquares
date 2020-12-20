@@ -1,7 +1,6 @@
 package musical.squares;
 
-//TODO: Change name to Instrument
-public enum Instruments {
+public enum Instrument {
     ACOUSTIC_GRAND_PIANO(1),
     HARPSICHORD(7),
     GLOCKENSPIEL(10),
@@ -19,7 +18,7 @@ public enum Instruments {
 
     private int instrument;
 
-    private Instruments(int instrument) {
+    Instrument(int instrument) {
         this.instrument = instrument;
     }
 

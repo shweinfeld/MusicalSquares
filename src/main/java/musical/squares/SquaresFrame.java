@@ -8,6 +8,7 @@ import java.net.URL;
 
 public class SquaresFrame extends JFrame implements ItemListener {
 
+
     private final Squares SQUARES;
     private final SquaresView VIEW;
     private final JPanel PLAY_BUTTONS_PANEL = new JPanel(new GridLayout(1, Squares.ROW));
@@ -15,10 +16,13 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private final JPanel SQUARES_AND_PLAYS = new JPanel(new BorderLayout());
     private Box UIControlPanel;
     private JComboBox<Scale> scaleOptions;
-    private JComboBox<Instruments> instrumentOptions;
+    private JComboBox<Instrument> instrumentOptions;
     private JLabel scaleLabel;
     private JLabel instrumentLabel;
     private final int DELAY = 200;
+
+    private final int delay = 200;
+
     boolean playing = false;
     private final ButtonGroup CONTROL_BUTTONS = new ButtonGroup();
     private final String PLAY_ICON_IMAGE = "icons8-circled-play-64.png";
@@ -85,7 +89,9 @@ public class SquaresFrame extends JFrame implements ItemListener {
     }
 
     private void setUpInstrumentControl() {
-        instrumentOptions = new JComboBox<>(Instruments.values());
+        instrumentOptions = new JComboBox<>(Instrument.values());
+        UIControlPanel.add(createFiller(20, 20));
+        instrumentOptions = new JComboBox<>(Instrument.values());
         instrumentOptions.addItemListener(this);
         instrumentLabel = new JLabel("Choose Instrument:");
         instrumentLabel.setAlignmentX(UIControlPanel.getAlignmentX());
@@ -113,8 +119,8 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private void setUpClearButton(Dimension buttonSize) {
         JButton clear;
         CONTROL_BUTTONS.add(clear = createButton("Clear", buttonSize));
-        clear.setAlignmentX(UIControlPanel.getAlignmentX());
         clear.addActionListener(ActionEvent -> clearNotes());
+        clear.setAlignmentX(UIControlPanel.getAlignmentX());
         UIControlPanel.add(clear);
     }
 
@@ -150,12 +156,15 @@ public class SquaresFrame extends JFrame implements ItemListener {
             playStanzaButton.setIcon(playIcon);
             int stanza = j;
             playStanzaButton.addActionListener(ActionEvent -> {
+
                 playColumn(stanza);
                 VIEW.repaint();
+
             });
             PLAY_BUTTONS_PANEL.add(playStanzaButton);
         }
     }
+
 
     private void playColumn(int stanza) {
         SQUARES.playStanza(stanza);
@@ -215,11 +224,13 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent event) {
+
         if (event.getSource() == scaleOptions && scaleOptions.getSelectedItem() != null) {
             SQUARES.changeScales((Scale) scaleOptions.getSelectedItem());
         }
         if (event.getSource() == instrumentOptions && instrumentOptions.getSelectedItem() != null) {
-            SQUARES.changeInstrument((Instruments) instrumentOptions.getSelectedItem());
+            SQUARES.changeInstrument((Instrument) instrumentOptions.getSelectedItem());
+
         }
     }
 }
