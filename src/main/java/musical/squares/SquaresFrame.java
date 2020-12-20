@@ -8,7 +8,6 @@ import java.net.URL;
 
 public class SquaresFrame extends JFrame implements ItemListener {
 
-
     private final Squares SQUARES;
     private final SquaresView VIEW;
     private final JPanel PLAY_BUTTONS_PANEL = new JPanel(new GridLayout(1, Squares.ROW));
