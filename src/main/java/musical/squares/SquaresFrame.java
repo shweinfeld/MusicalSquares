@@ -21,7 +21,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private final int DELAY = 200;
     boolean playing = false;
     private final ButtonGroup CONTROL_BUTTONS = new ButtonGroup();
-    private  final String PLAY_ICON_IMAGE = "icons8-circled-play-64.png";
+    private final String PLAY_ICON_IMAGE = "icons8-circled-play-64.png";
 
 
     public SquaresFrame(SquareMouseListener listener, SquaresView view) {
@@ -211,10 +211,10 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent event) {
-        if (event.getSource() == scaleOptions) {
+        if (event.getSource() == scaleOptions && scaleOptions.getSelectedItem() != null) {
             SQUARES.changeScales((Scale) scaleOptions.getSelectedItem());
         }
-        if (event.getSource() == instrumentOptions) {
+        if (event.getSource() == instrumentOptions && instrumentOptions.getSelectedItem() != null) {
             SQUARES.changeInstrument((Instruments) instrumentOptions.getSelectedItem());
         }
     }
