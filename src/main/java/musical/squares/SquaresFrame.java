@@ -203,7 +203,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     private Box.Filler createFiller(int width, int height) {
         Dimension minSize = new Dimension(width, height);
-        Dimension prefSize = new Dimension(width, height);
+        Dimension prefSize = new Dimension(minSize);
         Dimension maxSize = new Dimension(Short.MAX_VALUE, height);
         return (new Box.Filler(minSize, prefSize, maxSize));
     }
