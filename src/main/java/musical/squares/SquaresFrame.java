@@ -19,13 +19,9 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private JComboBox<Instrument> instrumentOptions;
     private JLabel scaleLabel;
     private JLabel instrumentLabel;
-    private final int DELAY = 200;
 
-    private final int delay = 200;
-
-    boolean playing = false;
+    private boolean playing = false;
     private final ButtonGroup CONTROL_BUTTONS = new ButtonGroup();
-    private final String PLAY_ICON_IMAGE = "icons8-circled-play-64.png";
 
 
     public SquaresFrame(SquareMouseListener listener, SquaresView view) {
@@ -151,7 +147,8 @@ public class SquaresFrame extends JFrame implements ItemListener {
         for (int j = 0; j < Squares.ROW; j++) {
             JButton playStanzaButton = new JButton();
             playStanzaButton.setPreferredSize(new Dimension(SquaresView.CELL_SIZE, SquaresView.CELL_SIZE));
-            URL imageUrl = ClassLoader.getSystemResource(PLAY_ICON_IMAGE);
+            String playIconImage = "icons8-circled-play-64.png";
+            URL imageUrl = ClassLoader.getSystemResource(playIconImage);
             ImageIcon playIcon = new ImageIcon(new ImageIcon(imageUrl).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             playStanzaButton.setIcon(playIcon);
             int stanza = j;
@@ -200,7 +197,8 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     private void delaySound() {
         try {
-            Thread.sleep(DELAY);
+            int delay = 200;
+            Thread.sleep(delay);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
