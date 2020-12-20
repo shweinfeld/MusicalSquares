@@ -182,15 +182,19 @@ public class SquaresFrame extends JFrame implements ItemListener {
         Thread thread = new Thread(() -> {
             while (playing) {
                 SQUARES.playNextLine();
-                try {
-                    Thread.sleep(DELAY);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                delaySound();
                 VIEW.repaint();
             }
         });
         thread.start();
+    }
+
+    private void delaySound() {
+        try {
+            Thread.sleep(DELAY);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private JButton createButton(String text, Dimension size) {
