@@ -66,17 +66,17 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private void setUpControlPanel() {
         Dimension panelSize = new Dimension(200, 80);
         sizePanel(panelSize);
+        UIControlPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         UIControlPanel.add(createFiller(20, 30));
         Dimension buttonSize = new Dimension(100, 30);
         setUpControlButtons(buttonSize);
 
         setUpScaleControl();
         setUpInstrumentControl();
-        Border blackLine = BorderFactory.createLineBorder(Color.black);
-        addComponentsToControlPanel(blackLine);
+        addComponentsToControlPanel();
     }
 
-    private void addComponentsToControlPanel(Border blackLine) {
+    private void addComponentsToControlPanel() {
 
         UIControlPanel.add(scaleLabel);
         UIControlPanel.add(scaleOptions);
@@ -84,7 +84,6 @@ public class SquaresFrame extends JFrame implements ItemListener {
         UIControlPanel.add(instrumentLabel);
         UIControlPanel.add(instrumentOptions);
         UIControlPanel.add(createFiller(20, 20));
-        UIControlPanel.setBorder(blackLine);
     }
 
     private void setUpInstrumentControl() {
