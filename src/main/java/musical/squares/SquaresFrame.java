@@ -143,7 +143,6 @@ public class SquaresFrame extends JFrame implements ItemListener {
     private void createPlayStanzaButtons() {
         for (int j = 0; j < Squares.ROW; j++) {
             JButton playStanzaButton = new JButton();
-            //playStanzaButton.setBackground(new Color(47, 191, 51));
             playStanzaButton.setPreferredSize(new Dimension(SquaresView.CELL_SIZE, SquaresView.CELL_SIZE));
             URL imageUrl = ClassLoader.getSystemResource("icons8-circled-play-64.png");
             ImageIcon playIcon = new ImageIcon(new ImageIcon(imageUrl).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
@@ -157,7 +156,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
         }
     }
 
-    private void playColumn(int stanza)  {
+    private void playColumn(int stanza) {
         SQUARES.playStanza(stanza);
         SQUARES.setStanza(stanza + 1);
     }
