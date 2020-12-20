@@ -1,7 +1,6 @@
 package musical.squares;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -11,9 +10,9 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     private final Squares SQUARES;
     private final SquaresView VIEW;
-    private final JPanel playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
-    private final JPanel instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
-    private JPanel squaresAndPlays;
+    private final JPanel PLAY_BUTTONS_PANEL = new JPanel(new GridLayout(1, Squares.ROW));
+    private final JPanel INSTRUCTION_PANEL = new JPanel(new GridLayout(1, Squares.ROW));
+    private final JPanel SQUARES_AND_PLAYS = new JPanel(new BorderLayout());
     private Box UIControlPanel;
     private JComboBox<Scale> scaleOptions;
     private JComboBox<Instruments> instrumentOptions;
@@ -40,19 +39,18 @@ public class SquaresFrame extends JFrame implements ItemListener {
         setUpInstructionPanel();
         setUpSquaresAndPlays(listener, view);
 
-        add(squaresAndPlays);
+        add(SQUARES_AND_PLAYS);
         add(UIControlPanel, BorderLayout.EAST);
     }
 
     private void setUpSquaresAndPlays(SquareMouseListener listener, SquaresView view) {
-        squaresAndPlays = new JPanel(new BorderLayout());
-        squaresAndPlays.setBackground(Color.WHITE);
+        SQUARES_AND_PLAYS.setBackground(Color.WHITE);
 
         createPlayStanzaButtons();
         view.addMouseListener(listener);
-        squaresAndPlays.add(instructionPanel, BorderLayout.NORTH);
-        squaresAndPlays.add(playButtonsPanel, BorderLayout.SOUTH);
-        squaresAndPlays.add(view, BorderLayout.CENTER);
+        SQUARES_AND_PLAYS.add(INSTRUCTION_PANEL, BorderLayout.NORTH);
+        SQUARES_AND_PLAYS.add(PLAY_BUTTONS_PANEL, BorderLayout.SOUTH);
+        SQUARES_AND_PLAYS.add(view, BorderLayout.CENTER);
     }
 
     private void setUpInstructionPanel() {
@@ -60,7 +58,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
                 "and an instrument from the select buttons. \nHit play at the bottom of each column to play a single column or hit play on the right" +
                 " to play all the stanzas in a row.");
         welcome.setLineWrap(true);
-        instructionPanel.add(welcome);
+        INSTRUCTION_PANEL.add(welcome);
     }
 
     private void setUpControlPanel() {
@@ -155,7 +153,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
                 playColumn(stanza);
                 VIEW.repaint();
             });
-            playButtonsPanel.add(playStanzaButton);
+            PLAY_BUTTONS_PANEL.add(playStanzaButton);
         }
     }
 
