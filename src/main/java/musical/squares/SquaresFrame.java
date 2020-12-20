@@ -68,16 +68,15 @@ public class SquaresFrame extends JFrame implements ItemListener {
         sizePanel(panelSize);
         UIControlPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         UIControlPanel.add(createFiller(20, 30));
-        Dimension buttonSize = new Dimension(100, 30);
-        setUpControlButtons(buttonSize);
 
+        setUpControlButtons();
         setUpScaleControl();
         setUpInstrumentControl();
+        
         addComponentsToControlPanel();
     }
 
     private void addComponentsToControlPanel() {
-
         UIControlPanel.add(scaleLabel);
         UIControlPanel.add(scaleOptions);
         UIControlPanel.add(createFiller(20, 20));
@@ -100,7 +99,8 @@ public class SquaresFrame extends JFrame implements ItemListener {
         scaleLabel.setAlignmentX(UIControlPanel.getAlignmentX());
     }
 
-    private void setUpControlButtons(Dimension buttonSize) {
+    private void setUpControlButtons() {
+        Dimension buttonSize = new Dimension(100, 30);
         setUpPlayButton(buttonSize);
         UIControlPanel.add(createFiller(20, 20));
 
