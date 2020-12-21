@@ -1,132 +1,180 @@
 package musical.squares;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.net.URL;
-import java.util.Objects;
 
 public class SquaresFrame extends JFrame implements ItemListener {
 
-    private final Squares squares;
-    private final SquaresView view;
-    private final JPanel playButtonsPanel;
-    private final JComboBox<Scale> scaleOptions;
-    private final JComboBox<Instrument> instrumentOptions;
-    private final int delay = 200;
-    boolean playing = false;
-    ButtonGroup buttons = new ButtonGroup();
+    private final Squares SQUARES;
+    private final SquaresView VIEW;
+    private final JPanel PLAY_BUTTONS_PANEL = new JPanel(new GridLayout(1, Squares.ROW));
+    private final JPanel INSTRUCTION_PANEL = new JPanel(new GridLayout(1, Squares.ROW));
+    private final JPanel SQUARES_AND_PLAYS = new JPanel(new BorderLayout());
+    private Box UIControlPanel;
+    private JComboBox<Scale> scaleOptions;
+    private JComboBox<Instrument> instrumentOptions;
+    private JLabel scaleLabel;
+    private JLabel instrumentLabel;
+
+    private boolean playing = false;
+    private final ButtonGroup CONTROL_BUTTONS = new ButtonGroup();
 
 
     public SquaresFrame(SquareMouseListener listener, SquaresView view) {
 
-        this.squares = view.getSquares();
-        this.view = view;
+        this.SQUARES = view.getSquares();
+        this.VIEW = view;
 
         setSize(1175, 380);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Musical musical.squares.Squares");
-        setLayout(new GridLayout(2, 1));
         setResizable(false);
-
         setTitle("Musical Squares");
         setLayout(new BorderLayout());
 
-        Box UIControlPanel = Box.createVerticalBox();
-        Dimension sizePanel = new Dimension(200, 80);
-        UIControlPanel.setPreferredSize(sizePanel);
-        UIControlPanel.setMaximumSize(sizePanel);
-        UIControlPanel.setMinimumSize(sizePanel);
-        Dimension size = new Dimension(100, 30);
-        UIControlPanel.add(createFiller(20, 30));
-        JButton play;
-        buttons.add(play = createButton("Play", size));
-        play.setAlignmentX(UIControlPanel.getAlignmentX());
-        UIControlPanel.add(play);
-        UIControlPanel.add(createFiller(20, 20));
-        JButton stop;
-        buttons.add(stop = createButton("Stop", size));
-        stop.setAlignmentX(UIControlPanel.getAlignmentX());
-        UIControlPanel.add(stop);
-        UIControlPanel.add(createFiller(20, 20));
-        JButton clear;
-        buttons.add(clear = createButton("Clear", size));
-        clear.setAlignmentX(UIControlPanel.getAlignmentX());
-        UIControlPanel.add(clear);
-        UIControlPanel.add(createFiller(20, 20));
+        setUpControlPanel();
 
-        scaleOptions = new JComboBox<>(Scale.values());
-        scaleOptions.addItemListener(this);
-        JLabel scaleLabel = new JLabel("Choose Scale:");
-        scaleLabel.setAlignmentX(UIControlPanel.getAlignmentX());
-        UIControlPanel.add(scaleLabel);
-        UIControlPanel.add(scaleOptions);
-        UIControlPanel.add(createFiller(20, 20));
-        instrumentOptions = new JComboBox<>(Instrument.values());
-        instrumentOptions.addItemListener(this);
-        JLabel instrumentLabel = new JLabel("Choose Instrument:");
-        instrumentLabel.setAlignmentX(UIControlPanel.getAlignmentX());
-        UIControlPanel.add(instrumentLabel);
-        UIControlPanel.add(instrumentOptions);
-        UIControlPanel.add(createFiller(20, 20));
+        setUpInstructionPanel();
+        setUpSquaresAndPlays(listener, view);
 
-        Border blackline = BorderFactory.createLineBorder(Color.black);
-        UIControlPanel.setBorder(blackline);
+        add(SQUARES_AND_PLAYS);
+        add(UIControlPanel, BorderLayout.EAST);
+    }
 
-        playButtonsPanel = new JPanel(new GridLayout(1, Squares.ROW));
-        JPanel instructionPanel = new JPanel(new GridLayout(1, Squares.ROW));
+    private void setUpSquaresAndPlays(SquareMouseListener listener, SquaresView view) {
+        SQUARES_AND_PLAYS.setBackground(Color.WHITE);
+
+        createPlayStanzaButtons();
+        view.addMouseListener(listener);
+        SQUARES_AND_PLAYS.add(INSTRUCTION_PANEL, BorderLayout.NORTH);
+        SQUARES_AND_PLAYS.add(PLAY_BUTTONS_PANEL, BorderLayout.SOUTH);
+        SQUARES_AND_PLAYS.add(view, BorderLayout.CENTER);
+    }
+
+    private void setUpInstructionPanel() {
         JTextArea welcome = new JTextArea("Welcome to Musical Squares! To play, click squares along the grid. Select a scale " +
                 "and an instrument from the select buttons. \nHit play at the bottom of each column to play a single column or hit play on the right" +
                 " to play all the stanzas in a row.");
         welcome.setLineWrap(true);
-        welcome.setEditable(false);
-        instructionPanel.add(welcome);
-        JPanel viewAndButtons = new JPanel(new BorderLayout());
-        viewAndButtons.setBackground(Color.WHITE);
-        stop.addActionListener(ActionEvent -> stopPlaying());
-        clear.addActionListener(ActionEvent -> clearNotes());
-        play.addActionListener(ActionEvent -> playNotes());
-        createPlayStanzaButtons();
-        view.addMouseListener(listener);
-        viewAndButtons.add(instructionPanel, BorderLayout.NORTH);
-        viewAndButtons.add(playButtonsPanel, BorderLayout.SOUTH);
-        viewAndButtons.add(view, BorderLayout.CENTER);
-        add(viewAndButtons);
-        add(UIControlPanel, BorderLayout.EAST);
+        INSTRUCTION_PANEL.add(welcome);
+    }
+
+    private void setUpControlPanel() {
+        Dimension panelSize = new Dimension(200, 80);
+        sizePanel(panelSize);
+        UIControlPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        UIControlPanel.add(createFiller(20, 30));
+
+        setUpControlButtons();
+        setUpScaleControl();
+        setUpInstrumentControl();
+
+        addComponentsToControlPanel();
+    }
+
+    private void addComponentsToControlPanel() {
+        UIControlPanel.add(scaleLabel);
+        UIControlPanel.add(scaleOptions);
+        UIControlPanel.add(createFiller(20, 20));
+        UIControlPanel.add(instrumentLabel);
+        UIControlPanel.add(instrumentOptions);
+        UIControlPanel.add(createFiller(20, 20));
+    }
+
+    private void setUpInstrumentControl() {
+        instrumentOptions = new JComboBox<>(Instrument.values());
+        UIControlPanel.add(createFiller(20, 20));
+        instrumentOptions = new JComboBox<>(Instrument.values());
+        instrumentOptions.addItemListener(this);
+        instrumentLabel = new JLabel("Choose Instrument:");
+        instrumentLabel.setAlignmentX(UIControlPanel.getAlignmentX());
+    }
+
+    private void setUpScaleControl() {
+        scaleOptions = new JComboBox<>(Scale.values());
+        scaleOptions.addItemListener(this);
+        scaleLabel = new JLabel("Choose Scale:");
+        scaleLabel.setAlignmentX(UIControlPanel.getAlignmentX());
+    }
+
+    private void setUpControlButtons() {
+        Dimension buttonSize = new Dimension(100, 30);
+        setUpPlayButton(buttonSize);
+        UIControlPanel.add(createFiller(20, 20));
+
+        setUpStopButton(buttonSize);
+        UIControlPanel.add(createFiller(20, 20));
+
+        setUpClearButton(buttonSize);
+        UIControlPanel.add(createFiller(20, 20));
+    }
+
+    private void setUpClearButton(Dimension buttonSize) {
+        JButton clearButton;
+        CONTROL_BUTTONS.add(clearButton = createButton("Clear", buttonSize));
+        clearButton.addActionListener(ActionEvent -> clearNotes());
+        clearButton.setAlignmentX(UIControlPanel.getAlignmentX());
+        UIControlPanel.add(clearButton);
+    }
+
+    private void setUpStopButton(Dimension buttonSize) {
+        JButton stopButton;
+        CONTROL_BUTTONS.add(stopButton = createButton("Stop", buttonSize));
+        stopButton.addActionListener(ActionEvent -> stopPlaying());
+        stopButton.setAlignmentX(UIControlPanel.getAlignmentX());
+        UIControlPanel.add(stopButton);
+    }
+
+    private void setUpPlayButton(Dimension buttonSize) {
+        JButton playButton;
+        CONTROL_BUTTONS.add(playButton = createButton("Play", buttonSize));
+        playButton.addActionListener(ActionEvent -> playNotes());
+        playButton.setAlignmentX(UIControlPanel.getAlignmentX());
+        UIControlPanel.add(playButton);
+    }
+
+    private void sizePanel(Dimension panelSize) {
+        UIControlPanel = Box.createVerticalBox();
+        UIControlPanel.setPreferredSize(panelSize);
+        UIControlPanel.setMaximumSize(panelSize);
+        UIControlPanel.setMinimumSize(panelSize);
     }
 
     private void createPlayStanzaButtons() {
         for (int j = 0; j < Squares.ROW; j++) {
             JButton playStanzaButton = new JButton();
-            //playStanzaButton.setBackground(new Color(47, 191, 51));
             playStanzaButton.setPreferredSize(new Dimension(SquaresView.CELL_SIZE, SquaresView.CELL_SIZE));
-            URL imageUrl = ClassLoader.getSystemResource("icons8-circled-play-64.png");
+            String playIconImage = "icons8-circled-play-64.png";
+            URL imageUrl = ClassLoader.getSystemResource(playIconImage);
             ImageIcon playIcon = new ImageIcon(new ImageIcon(imageUrl).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
             playStanzaButton.setIcon(playIcon);
-            int row = j;
+            int stanza = j;
             playStanzaButton.addActionListener(ActionEvent -> {
-                playColumn(row);
-                view.repaint();
+
+                playColumn(stanza);
+                VIEW.repaint();
+
             });
-            playButtonsPanel.add(playStanzaButton);
+            PLAY_BUTTONS_PANEL.add(playStanzaButton);
         }
     }
 
-    private void playColumn(int row)  {
-        squares.playStanza(row);
-        squares.setStanza(row + 1);
+
+    private void playColumn(int stanza) {
+        SQUARES.playStanza(stanza);
+        SQUARES.setStanza(stanza + 1);
     }
 
     private void stopPlaying() {
         playing = false;
-        squares.setStanza(0);
+        SQUARES.setStanza(0);
     }
 
     private void clearNotes() {
-        squares.clearSquares();
-        view.repaint();
+        SQUARES.clearSquares();
+        VIEW.repaint();
     }
 
     private void playNotes() {
@@ -134,20 +182,25 @@ public class SquaresFrame extends JFrame implements ItemListener {
             return;
         }
         playing = true;
-        squares.setStanza(0);
-        view.repaint();
+        SQUARES.setStanza(0);
+        VIEW.repaint();
         Thread thread = new Thread(() -> {
             while (playing) {
-                squares.playNextLine();
-                try {
-                    Thread.sleep(delay);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                view.repaint();
+                SQUARES.playNextLine();
+                delaySound();
+                VIEW.repaint();
             }
         });
         thread.start();
+    }
+
+    private void delaySound() {
+        try {
+            int delay = 200;
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private JButton createButton(String text, Dimension size) {
@@ -160,7 +213,7 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     private Box.Filler createFiller(int width, int height) {
         Dimension minSize = new Dimension(width, height);
-        Dimension prefSize = new Dimension(width, height);
+        Dimension prefSize = new Dimension(minSize);
         Dimension maxSize = new Dimension(Short.MAX_VALUE, height);
         return (new Box.Filler(minSize, prefSize, maxSize));
     }
@@ -168,11 +221,13 @@ public class SquaresFrame extends JFrame implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent event) {
-        if (event.getSource() == scaleOptions) {
-            squares.changeScales((Scale) Objects.requireNonNull(scaleOptions.getSelectedItem()));
+
+        if (event.getSource() == scaleOptions && scaleOptions.getSelectedItem() != null) {
+            SQUARES.changeScales((Scale) scaleOptions.getSelectedItem());
         }
-        if (event.getSource() == instrumentOptions) {
-            squares.changeInstrument((Instrument) Objects.requireNonNull(instrumentOptions.getSelectedItem()));
+        if (event.getSource() == instrumentOptions && instrumentOptions.getSelectedItem() != null) {
+            SQUARES.changeInstrument((Instrument) instrumentOptions.getSelectedItem());
+
         }
     }
 }
