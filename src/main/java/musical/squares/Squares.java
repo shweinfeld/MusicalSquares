@@ -5,9 +5,9 @@ import javax.sound.midi.*;
 public class Squares {
     public final static int ROW = 40;
     public final static int COL = 12;
-    private boolean[][] squaresArray = new boolean[ROW][COL];
+    private final boolean[][] squaresArray = new boolean[ROW][COL];
     private int[] scale = Scale.CHROMATIC.getScale();
-    private MidiChannel midiChannel;
+    private final MidiChannel midiChannel;
     private int pitch;
     private int stanza = 0;
 
