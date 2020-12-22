@@ -70,7 +70,8 @@ public class Squares {
         return squaresArray[row][col];
     }
 
-    public void toggleCell(int row, int col){
+    public boolean toggleCell(int row, int col){
         squaresArray[row][col] = !squaresArray[row][col];
+        return squaresArray[row][col];
     }
 }
